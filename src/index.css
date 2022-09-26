@@ -1,13 +1,246 @@
+:root {
+  --primary-color: #FCE762;
+  --primary-color-hover: #f5e057;
+  --text-color: #FFFFFF;
+
+  --bg-color-01: #27282C;
+  --bg-color-02: #2F3136;
+  --bg-color-03: #323439;
+
+  --box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.25);
+
+  /* Errors */
+  --bg-input-error-color: rgba(220, 67, 67, 0.03);
+  --border-input-error-color: 2px solid #DC4343;
+  --box-shadow-input-color: 0px 0px 0px 6px rgba(220, 67, 67, 0.1);
+
+  /* Input */
+  --bg-input-default-color: #2F3136;
+  --border-input-default-color: 2px solid #383C46;
+  --border-input-focus-color: 2px solid #FFFFFF;
+  --box-shadow-default-color: 0px 0px 0px 4px rgba(47, 49, 54, 0.75);
+
+  /* Default values */
+  --border-radius: 8px;
+  --error-color: #DC4343;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  padding: 0;
+
+  background-color: var(--bg-color-01);
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+/*
+ *
+ *
+ *
+ * 
+ */
+.signin {
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+/*
+ *
+ *
+ *
+ * Card
+ */
+.card {
+  width: 380px;
+  padding: 20px 30px 30px;
+
+  border-radius: 14px;
+
+  background-color: var(--bg-color-02);
+
+  box-shadow: var(--box-shadow);
+}
+
+/*
+ *
+ *
+ *
+ * Input
+ */
+.input {
+  width: 100%;
+  position: relative;
+
+  margin-top: 5px;
+}
+
+.input__field {
+  height: 45px;
+  width: 100%;
+
+  background: var(--bg-input-default-color);
+  border: var(--border-input-default-color);
+  box-sizing: border-box;
+  border-radius: 8px;
+
+  padding: 0px 20px;
+
+  color: var(--text-color);
+  font-weight: 500;
+  font-size: 16px;
+
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.input__field::placeholder {
+  color: #383C46;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.input__label {
+  position: relative;
+  left: 15px;
+  top: 9px;
+  display: inline-block;
+  background-color: var(--bg-color-02);
+  color: var(--text-color);
+  font-size: 14px;
+  font-weight: 400;
+  padding: 0px 5px;
+  border-radius: 4px;
+}
+
+.input__field:focus {
+  transition: all ease 0.3s;
+  outline: none;
+  border: var(--border-input-focus-color);
+}
+
+.input--error .input__field:focus {
+  border: var(--border-input-error-color);
+  background-color: var(--bg-input-error-color);
+  box-shadow: var(--box-shadow-input-color);
+}
+
+.input--error .input__field:focus.input__field::placeholder {
+  color: transparent;
+}
+
+/*
+ *
+ *
+ *
+ * Text
+ */
+.u-h1 {
+  margin: 0px;
+  padding: 0px;
+
+  color: var(--text-color);
+
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 27px;
+}
+
+.u-p-01 {
+  margin: 0px;
+  padding: 0px;
+  padding-top: 10px;
+  font-size: 18px;
+
+  color: var(--text-color);
+}
+
+.u-link {
+  color: var(--primary-color);
+
+  font-weight: 600;
+  font-size: 18px;
+
+  text-decoration: none;
+}
+
+.u-link:hover {
+  text-decoration: underline;
+}
+
+/*
+ *
+ *
+ *
+ * Button
+ */
+.btn {
+  height: 45px;
+  width: 100%;
+  margin-top: 20px;
+
+  background-color: var(--primary-color);
+
+  border: none;
+
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  padding: 15px 0px;
+}
+
+.btn--primary {
+  background: var(--primary-color);
+  box-shadow: var(--box-shadow);
+  border-radius: 24px;
+  color: var(--bg-color-02);
+}
+
+.btn--primary:hover {
+  background: var(--primary-color-hover);
+}
+
+/*
+ *
+ *
+ *
+ * Geral
+ */
+.u-text-error {
+  margin-top: 5px;
+  color: var(--error-color);
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.u-text-center {
+  display: block;
+  text-align: center;
 }
