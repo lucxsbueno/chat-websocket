@@ -16,22 +16,14 @@ import {
   yupResolver
 } from "@hookform/resolvers/yup";
 
-import * as yup from "yup";
-
-const schema = yup.object({
-  full_name: yup.string().required("O campo nome completo precisa ser preenchido."),
-  email: yup.string().email("Preencha um e-mail válido.").required("O campo e-mail precisa ser preenchido."),
-  password: yup.string().min(4, "Minímo 4 caracteres.").max(16, "Máximo 16 caracteres.").required("A senha é necessária.")
-}).required();
+import schema from "../utils/schemas/signup.schema";
 
 const Signup = (props) => {
   const { register, handleSubmit,
     formState: { errors }
   } = useForm({ resolver: yupResolver(schema) });
 
-  const doSignup = (data) => {
-    console.log(data);
-  }
+  const doSignup = (data) => console.log(data);
 
   return (
     <div className="signin">

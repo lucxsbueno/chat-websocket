@@ -1,11 +1,16 @@
 import React from "react";
 
+import {
+  useAuth
+} from "../utils/providers/auth.provider";
+
 //components
 import Input from "../components/form/Input";
 import Button from "../components/form/Button";
 
 import {
-  Link
+  Link,
+  useNavigate
 } from "react-router-dom";
 
 import {
@@ -16,21 +21,27 @@ import {
   yupResolver
 } from "@hookform/resolvers/yup";
 
-import * as yup from "yup";
-
-const schema = yup.object({
-  email: yup.string().email("Preencha um e-mail válido.").required("O campo e-mail precisa ser preenchido."),
-  password: yup.string().min(4, "Minímo 4 caracteres.").max(16, "Máximo 16 caracteres.").required("A senha é necessária.")
-}).required();
+import schema from "../utils/schemas/signin.schema";
 
 const Signin = (props) => {
-  const { register, handleSubmit,
-    formState: { errors }
-  } = useForm({ resolver: yupResolver(schema) });
+  const { register, handleSubmit, formState: { errors } }
+    = useForm({ resolver: yupResolver(schema) });
+
+  const navigate = useNavigate();
+
+  const {
+    setUser
+  } = useAuth();
 
   const doSignin = (data) => {
-    console.log(data);
-  }
+    const newUser = {
+      ...data,
+      token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+    };
+
+    setUser(newUser);
+    localStorage.setItem("user", JSON.stringify(newUser));
+  };
 
   return (
     <div className="signin">

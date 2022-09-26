@@ -48,7 +48,7 @@ code {
  *
  *
  *
- * 
+ *
  */
 .signin {
   width: 100%;
@@ -99,7 +99,7 @@ code {
   box-sizing: border-box;
   border-radius: 8px;
 
-  padding: 0px 20px;
+  padding: 0px 15px;
 
   color: var(--text-color);
   font-weight: 500;
@@ -118,7 +118,7 @@ code {
 
 .input__label {
   position: relative;
-  left: 15px;
+  left: 12px;
   top: 9px;
   display: inline-block;
   background-color: var(--bg-color-02);
@@ -175,7 +175,7 @@ code {
   color: var(--primary-color);
 
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
 
   text-decoration: none;
 }
