@@ -1,6 +1,10 @@
 import React from "react";
 
 import {
+  motion
+} from "framer-motion";
+
+import {
   useAuth
 } from "../utils/providers/auth.provider";
 
@@ -44,7 +48,11 @@ const Signin = (props) => {
   };
 
   return (
-    <div className="signin">
+    <motion.div
+      className="signin"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}>
       <div className="card">
         <h1 className="u-h1">Welcome back 👋🏻</h1>
         <p className="u-p-01">
@@ -63,7 +71,7 @@ const Signin = (props) => {
           <Link to="/signup" className="u-link u-text-center mt-20">Signup now here!</Link>
         </form>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

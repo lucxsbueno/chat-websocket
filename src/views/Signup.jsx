@@ -1,5 +1,9 @@
 import React from "react";
 
+import {
+  motion
+} from "framer-motion";
+
 //components
 import Input from "../components/form/Input";
 import Button from "../components/form/Button";
@@ -26,7 +30,11 @@ const Signup = (props) => {
   const doSignup = (data) => console.log(data);
 
   return (
-    <div className="signin">
+    <motion.div
+      className="signin"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}>
       <div className="card">
         <h1 className="u-h1">Signup</h1>
         <p className="u-p-01">
@@ -48,7 +56,7 @@ const Signup = (props) => {
           <Link to="/" className="u-link u-text-center mt-20">← Come back</Link>
         </form>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
