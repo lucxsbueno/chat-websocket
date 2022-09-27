@@ -8,6 +8,12 @@ import {
   useAuth
 } from "../utils/providers/auth.provider";
 
+const framer = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 },
+};
+
 const Home = () => {
   const { setUser } = useAuth();
 
@@ -22,10 +28,7 @@ const Home = () => {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}>
+    <motion.div initial={framer.initial} animate={framer.animate} exit={framer.exit}>
       <h1 className="u-h1">Home</h1>
       <button onClick={doLogout}>Sair</button>
     </motion.div>
