@@ -16,8 +16,6 @@ const App = () => {
     user
   } = useAuth();
 
-  console.log(user);
-
   const isLogged = user.token
     ? <MainRoutes/>
     : <AuthRoutes/>;

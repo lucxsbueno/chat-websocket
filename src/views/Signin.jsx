@@ -1,36 +1,27 @@
 import React from "react";
 
-import {
-  useAuth
-} from "../utils/providers/auth.provider";
-
 //components
 import Input from "../components/form/Input";
 import Button from "../components/form/Button";
 
-import {
-  Link
-} from "react-router-dom";
-
-import {
-  useForm
-} from "react-hook-form";
-
-import {
-  yupResolver
-} from "@hookform/resolvers/yup";
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useAuth } from "../utils/providers/auth.provider";
 
 import schema from "../utils/schemas/signin.schema";
+import useAxiosInstance from "../utils/hooks/useAxiosInstance";
 
 const Signin = (props) => {
-  const { register, handleSubmit, formState: { errors } }
-    = useForm({ resolver: yupResolver(schema) });
+  const instance = useAxiosInstance();
 
   const {
     setUser
   } = useAuth();
 
-  const doSignin = (data) => {
+  const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
+
+  const doSignin = data => {
     const newUser = {
       ...data,
       token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
@@ -52,7 +43,7 @@ const Signin = (props) => {
           name="email" register={register} error={errors.email} />
 
         <Input label="Senha de acesso" type="text" placeholder="exemplo123"
-          name="password" register={register} error={errors.password} />
+          name="pass" register={register} error={errors.pass} />
 
         <Button type="submit" title="Access Account" />
 

@@ -4,24 +4,14 @@ import React from "react";
 import Input from "../components/form/Input";
 import Button from "../components/form/Button";
 
-import {
-  Link
-} from "react-router-dom";
-
-import {
-  useForm
-} from "react-hook-form";
-
-import {
-  yupResolver
-} from "@hookform/resolvers/yup";
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import schema from "../utils/schemas/signup.schema";
 
 const Signup = (props) => {
-  const { register, handleSubmit,
-    formState: { errors }
-  } = useForm({ resolver: yupResolver(schema) });
+  const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
 
   const doSignup = (data) => console.log(data);
 
