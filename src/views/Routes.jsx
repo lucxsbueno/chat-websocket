@@ -14,6 +14,7 @@ import {
 import Home from "./Home";
 import Signin from "./Signin";
 import Signup from "./Signup";
+import AuthTemplate from "../components/templates/AuthTemplate";
 
 export const AuthRoutes = (props) => {
   const location = useLocation();
@@ -21,8 +22,10 @@ export const AuthRoutes = (props) => {
   return (
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Signin />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/" element={<AuthTemplate />}>
+          <Route index element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
+        </Route>
       </Routes>
     </AnimatePresence>
   )

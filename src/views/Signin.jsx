@@ -1,10 +1,6 @@
 import React from "react";
 
 import {
-  motion
-} from "framer-motion";
-
-import {
   useAuth
 } from "../utils/providers/auth.provider";
 
@@ -13,8 +9,7 @@ import Input from "../components/form/Input";
 import Button from "../components/form/Button";
 
 import {
-  Link,
-  useNavigate
+  Link
 } from "react-router-dom";
 
 import {
@@ -31,8 +26,6 @@ const Signin = (props) => {
   const { register, handleSubmit, formState: { errors } }
     = useForm({ resolver: yupResolver(schema) });
 
-  const navigate = useNavigate();
-
   const {
     setUser
   } = useAuth();
@@ -48,30 +41,24 @@ const Signin = (props) => {
   };
 
   return (
-    <motion.div
-      className="signin"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}>
-      <div className="card">
-        <h1 className="u-h1">Welcome back 👋🏻</h1>
-        <p className="u-p-01">
-          Not a member? <Link to="/signup" className="u-link">signup now here!</Link>.
-        </p>
+    <div className="card">
+      <h1 className="u-h1">Welcome back 👋🏻</h1>
+      <p className="u-p-01">
+        Not a member? <Link to="/signup" className="u-link">signup now here!</Link>.
+      </p>
 
-        <form className="mt-10" onSubmit={handleSubmit(doSignin)}>
-          <Input label="Endereço de e-mail" type="text" placeholder="john@doe"
-            name="email" register={register} error={errors.email} />
+      <form className="mt-10" onSubmit={handleSubmit(doSignin)}>
+        <Input label="Endereço de e-mail" type="text" placeholder="john@doe"
+          name="email" register={register} error={errors.email} />
 
-          <Input label="Senha de acesso" type="text" placeholder="exemplo123"
-            name="password" register={register} error={errors.password} />
+        <Input label="Senha de acesso" type="text" placeholder="exemplo123"
+          name="password" register={register} error={errors.password} />
 
-          <Button type="submit" title="Access Account" />
+        <Button type="submit" title="Access Account" />
 
-          <Link to="/signup" className="u-link u-text-center mt-20">Signup now here!</Link>
-        </form>
-      </div>
-    </motion.div>
+        <Link to="/signup" className="u-link u-text-center mt-20">Signup now here!</Link>
+      </form>
+    </div>
   );
 }
 
