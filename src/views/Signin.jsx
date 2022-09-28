@@ -7,29 +7,40 @@ import Button from "../components/form/Button";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "../utils/providers/auth.provider";
 
 import schema from "../utils/schemas/signin.schema";
 import useAxiosInstance from "../utils/hooks/useAxiosInstance";
 
 const Signin = (props) => {
+  //hooks
   const instance = useAxiosInstance();
+  const { setUser } = useAuth();
 
-  const {
-    setUser
-  } = useAuth();
-
+  //useForm
   const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
 
-  const doSignin = data => {
-    const newUser = {
-      ...data,
-      token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-    };
+  const signin = (data) => instance.post("/users/signin", data);
 
-    setUser(newUser);
-    localStorage.setItem("user", JSON.stringify(newUser));
-  };
+  const { mutate, isLoading } = useMutation(signin, {
+    onSuccess: response => {
+      const newUser = response.data;
+
+      setUser(newUser);
+      localStorage.setItem("user", JSON.stringify(newUser));
+    },
+    onError: error => {
+      if (error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert("Erro interno do servidor.");
+      }
+    },
+    onSettled: () => {}
+  });
+
+  const doSignin = formData => mutate(formData);
 
   return (
     <div className="card">
@@ -45,7 +56,8 @@ const Signin = (props) => {
         <Input label="Senha de acesso" type="text" placeholder="exemplo123"
           name="pass" register={register} error={errors.pass} />
 
-        <Button type="submit" title="Access Account" />
+        <Button type="submit" title="Access Account"
+         loading={isLoading} disabled={isLoading} />
 
         <Link to="/signup" className="u-link u-text-center mt-20">Signup now here!</Link>
       </form>
