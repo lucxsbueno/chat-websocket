@@ -1,5 +1,7 @@
 import React from "react";
 
+import SnackbarProvider from "react-simple-snackbar";
+
 //routes
 import {
   MainRoutes,
@@ -20,7 +22,11 @@ const App = () => {
     ? <MainRoutes/>
     : <AuthRoutes/>;
 
-  return isLogged;
+  return (
+    <SnackbarProvider>
+      {isLogged}
+    </SnackbarProvider>
+  );
 };
 
 export default App;

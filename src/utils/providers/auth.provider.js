@@ -4,20 +4,18 @@ export const AuthContext = React.createContext({});
 
 export const AuthProvider = (props) => {
   const [user, setUser] = React.useState({
-    id: "",
-    name: "",
     token: ""
   });
 
   React.useEffect(() => {
-    const userStorage = localStorage.getItem("user");
+    const userStorage = localStorage.getItem("ws-chat-user");
 
     if (userStorage) {
       const user = JSON.parse(userStorage);
 
       setUser(user);
     } else {
-      setUser({ id: "", name: "", token: "" });
+      setUser({ token: "" });
     }
   }, []);
 

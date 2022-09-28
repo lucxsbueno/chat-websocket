@@ -21,3 +21,10 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+## .env
+```
+REACT_APP_BASE_URL_DEV=
+REACT_APP_BASE_URL_PROD=
+REACT_APP_REQUEST_TIMEOUT=
+```
