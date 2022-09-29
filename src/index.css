@@ -9,6 +9,7 @@
   --bg-color-03: #323439;
 
   --box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.25);
+  --box-shadow-header: 0px 1px 1px rgba(0, 0, 0, 0.25);
 
   /* Errors */
   --bg-input-error-color: rgba(220, 67, 67, 0.03);
@@ -28,6 +29,10 @@
   /* Spinner */
   --spinner-default-border-opacity-color: #ffffff7c;
   --spinner-default-border-color: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
@@ -75,7 +80,7 @@ code {
  * Card
  */
 .card {
-  width: 380px;
+  width: 410px;
   padding: 20px 30px 30px;
 
   border-radius: 14px;
@@ -263,6 +268,57 @@ code {
   text-align: center;
 }
 
+.heading-sm {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  color: var(--text-color);
+}
+
+.p-sm {
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--text-color);
+}
+
+.x-p-20 {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.y-p-20 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.p-l-20 {
+  padding-left: 20px;
+}
+
+.p-l-10 {
+  padding-left: 20px;
+}
+
+.fw-4 {
+  font-weight: 400;
+}
+
+.fw-5 {
+  font-weight: 500;
+}
+
+.fw-6 {
+  font-weight: 600;
+}
+
+.fw-7 {
+  font-weight: 700;
+}
+
+.fw-8 {
+  font-weight: 800;
+}
+
 /*
  *
  *
@@ -331,3 +387,70 @@ code {
     transform: rotate(360deg);
   }
 }
+
+/*
+ *
+ *
+ *
+ * Template
+ */
+.app {
+  width: 100%;
+  height: 100vh;
+
+  padding: 20px;
+
+  background-color: var(--bg-color-01);
+}
+
+.app__wrapper {
+  width: 100%;
+  height: calc(100vh - 40px);
+
+  display: flex;
+  flex-direction: row;
+}
+
+.app__menu {
+  width: 320px;
+  min-width: 320px;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: var(--bg-color-02);
+}
+
+.app__container {
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-color-03);
+}
+
+.app__header {
+  width: 100%;
+  height: 60px;
+
+  padding: 0px 25px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  box-shadow: var(--box-shadow-header);
+
+  color: var(--text-color);
+}
+
+.app__header--bg-02 {
+  background-color: var(--bg-color-02);
+}
+
+.app__header--bg-03 {
+  background-color: var(--bg-color-03);
+}
+
+/* .app__menu-body {
+
+} */
