@@ -8,13 +8,16 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
+import { useSnackbar } from "react-simple-snackbar";
 import { useAuth } from "../utils/providers/auth.provider";
 import { useHttp } from "../utils/hooks/useHttp";
 
 import schema from "../utils/schemas/signin.schema";
+import options from "../utils/config/snackbar.config";
 
-const Signin = (props) => {
+const Signin = () => {
   //hooks
+  const [openSnackbarError] = useSnackbar(options("error"));
   const { setUser } = useAuth();
   const fetch = useHttp();
 
@@ -32,9 +35,9 @@ const Signin = (props) => {
     },
     onError: error => {
       if (error.response) {
-        alert(error.response.data.message);
+        openSnackbarError(error.response.data.message);
       } else {
-        alert("Erro interno do servidor.");
+        openSnackbarError("Erro interno do servidor.");
       }
     },
     onSettled: () => {}

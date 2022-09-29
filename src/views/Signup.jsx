@@ -4,29 +4,37 @@ import React from "react";
 import Input from "../components/form/Input";
 import Button from "../components/form/Button";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { useSnackbar } from "react-simple-snackbar";
+import { useHttp } from "../utils/hooks/useHttp";
 
 import schema from "../utils/schemas/signup.schema";
+import options from "../utils/config/snackbar.config";
 
-const Signup = (props) => {
+const Signup = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
-  const [openSnackbar, closeSnackbar] = useSnackbar();
+  const [openSnackbarSuccess] = useSnackbar(options("success"));
+  const [openSnackbarError] = useSnackbar(options("error"));
+  const navigate = useNavigate();
+  const fetch = useHttp();
 
   const signup = data => fetch({ url: "/users/signup", method: "POST", data });
 
   const { mutate, isLoading } = useMutation(signup, {
     onSuccess: response => {
-      openSnackbar(response.data.message);
+      if (response.data) {
+        openSnackbarSuccess(response.data.message);
+        navigate("/");
+      }
     },
     onError: error => {
       if (error.response) {
-        alert(error.response.data.message);
+        openSnackbarError(error.response.data.message);
       } else {
-        alert("Erro interno do servidor.");
+        openSnackbarError("Erro interno do servidor!");
       }
     },
     onSettled: () => {}
