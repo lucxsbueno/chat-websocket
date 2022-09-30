@@ -19,9 +19,9 @@ const Signup = () => {
   const [openSnackbarSuccess] = useSnackbar(options("success"));
   const [openSnackbarError] = useSnackbar(options("error"));
   const navigate = useNavigate();
-  const fetch = useHttp();
+  const request = useHttp();
 
-  const signup = data => fetch({ url: "/users/signup", method: "POST", data });
+  const signup = data => request({ url: "/users/signup", method: "POST", data });
 
   const { mutate, isLoading } = useMutation(signup, {
     onSuccess: response => {

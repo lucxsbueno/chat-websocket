@@ -10,21 +10,14 @@ const instance = axios.create({
 });
 
 export const useHttp = () => {
-  //auth
-  const {
-    user
-  } = useAuth();
+  const { user } = useAuth();
 
   const bearerToken = user.token
     ? "Bearer " + user.token
     : "";
 
-  return fetch = async (configObject) => {
-    const {
-      url,
-      method,
-      data
-    } = configObject;
+  const request = async (configObject) => {
+    const { url, method, data } = configObject;
 
     const options = {
       url: url,
@@ -41,4 +34,6 @@ export const useHttp = () => {
 
     return response;
   }
+
+  return request;
 }

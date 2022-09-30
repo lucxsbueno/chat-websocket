@@ -19,12 +19,12 @@ const Signin = () => {
   //hooks
   const [openSnackbarError] = useSnackbar(options("error"));
   const { setUser } = useAuth();
-  const fetch = useHttp();
+  const request = useHttp();
 
   //useForm
   const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
 
-  const signin = data => fetch({ url: "/users/signin", method: "POST", data });
+  const signin = data => request({ url: "/users/signin", method: "POST", data });
 
   const { mutate, isLoading } = useMutation(signin, {
     onSuccess: response => {
