@@ -1,12 +1,7 @@
 import React from "react";
 
-import {
-  motion
-} from "framer-motion";
-
-import {
-  useAuth
-} from "../utils/providers/auth.provider";
+import { motion } from "framer-motion";
+import { Outlet } from "react-router-dom";
 
 const framer = {
   initial: { opacity: 0 },
@@ -14,14 +9,7 @@ const framer = {
   exit: { opacity: 0 },
 };
 
-const Home = () => {
-  const { setUser } = useAuth();
-
-  const doLogout = () => {
-    setUser({ token: "" });
-
-    localStorage.removeItem("user");
-  }
+const DashTemplate = () => {
 
   return (
     <motion.div className="app" initial={framer.initial} animate={framer.animate} exit={framer.exit}>
@@ -32,22 +20,20 @@ const Home = () => {
           </div>
           <div className="app__menu-body">
             <div className="x-p-20 y-p-20">
-              Dentro do menu 123
+              Dentro do menu
             </div>
+          </div>
+          <div className="app__menu-footer">
+
           </div>
         </div>
 
-        <div className="app__container app__header--bg-03">
-          <div className="app__header">
-            <h2 className="p-sm fw-5">Tecnologia</h2>
-            <div className="x-p-20 y-p-20">
-              <button onClick={doLogout}>Fazer logout</button>
-            </div>
-          </div>
+        <div className="app__container">
+          <Outlet/>
         </div>
       </div>
     </motion.div>
-  )
+  );
 }
 
-export default Home;
+export default DashTemplate;

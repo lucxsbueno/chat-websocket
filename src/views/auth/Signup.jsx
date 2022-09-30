@@ -1,18 +1,18 @@
 import React from "react";
 
 //components
-import Input from "../components/form/Input";
-import Button from "../components/form/Button";
+import Input from "../../components/form/Input";
+import Button from "../../components/form/Button";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { useSnackbar } from "react-simple-snackbar";
-import { useHttp } from "../utils/hooks/useHttp";
+import { useHttp } from "../../utils/hooks/useHttp";
 
-import schema from "../utils/schemas/signup.schema";
-import options from "../utils/config/snackbar.config";
+import schema from "../../utils/schemas/signup.schema";
+import options from "../../utils/config/snackbar.config";
 
 const Signup = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
