@@ -1,27 +1,27 @@
 import React from "react";
 
 //components
-import Input from "../components/form/Input";
-import Button from "../components/form/Button";
+import Input from "../../components/form/Input";
+import Button from "../../components/form/Button";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { useSnackbar } from "react-simple-snackbar";
-import { useHttp } from "../utils/hooks/useHttp";
+import { useHttp } from "../../utils/hooks/useHttp";
 
-import schema from "../utils/schemas/signup.schema";
-import options from "../utils/config/snackbar.config";
+import schema from "../../utils/schemas/signup.schema";
+import options from "../../utils/config/snackbar.config";
 
 const Signup = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
   const [openSnackbarSuccess] = useSnackbar(options("success"));
   const [openSnackbarError] = useSnackbar(options("error"));
   const navigate = useNavigate();
-  const fetch = useHttp();
+  const request = useHttp();
 
-  const signup = data => fetch({ url: "/users/signup", method: "POST", data });
+  const signup = data => request({ url: "/users/signup", method: "POST", data });
 
   const { mutate, isLoading } = useMutation(signup, {
     onSuccess: response => {
