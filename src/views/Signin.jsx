@@ -28,7 +28,7 @@ const Signin = () => {
 
   const { mutate, isLoading } = useMutation(signin, {
     onSuccess: response => {
-      const newUser = response.data;
+      const newUser = { token: response.data.token };
 
       setUser(newUser);
       localStorage.setItem("ws-chat-user", JSON.stringify(newUser));

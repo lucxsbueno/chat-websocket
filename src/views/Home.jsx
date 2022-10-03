@@ -20,7 +20,7 @@ const Home = () => {
   const doLogout = () => {
     setUser({ token: "" });
 
-    localStorage.removeItem("user");
+    localStorage.removeItem("ws-chat-user");
   }
 
   return (
@@ -32,7 +32,7 @@ const Home = () => {
           </div>
           <div className="app__menu-body">
             <div className="x-p-20 y-p-20">
-              Dentro do menu
+              Testando 123
             </div>
           </div>
         </div>

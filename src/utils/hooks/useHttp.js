@@ -19,6 +19,7 @@ export const useHttp = () => {
     ? "Bearer " + user.token
     : "";
 
+  // eslint-disable-next-line
   return fetch = async (configObject) => {
     const {
       url,

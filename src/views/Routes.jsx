@@ -14,6 +14,7 @@ import {
 import Home from "./Home";
 import Signin from "./Signin";
 import Signup from "./Signup";
+import Dashboard from "./Dashboard";
 import AuthTemplate from "../components/templates/AuthTemplate";
 
 export const AuthRoutes = (props) => {
@@ -38,6 +39,7 @@ export const MainRoutes = (props) => {
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </AnimatePresence>
   )
