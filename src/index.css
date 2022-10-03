@@ -80,7 +80,7 @@ code {
  * Card
  */
 .card {
-  width: 440px;
+  width: 410px;
   padding: 20px 30px 30px;
 
   border-radius: 14px;
@@ -409,11 +409,14 @@ code {
 
   display: flex;
   flex-direction: row;
+
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .app__menu {
-  width: 320px;
-  min-width: 320px;
+  width: 280px;
+  min-width: 280px;
 
   display: flex;
   flex-direction: column;
