@@ -44,9 +44,9 @@ const Signup = () => {
 
   return (
     <div className="card">
-      <h1 className="u-h1">Signup</h1>
-      <p className="u-p-01">
-        If you are a member, <Link to="/" className="u-link">signin here</Link>.
+      <h1 className="h1">Signup</h1>
+      <p className="p-01">
+        If you are a member, <Link to="/" className="link">signin here</Link>.
       </p>
 
       <form className="mt-10" onSubmit={handleSubmit(doSignup)}>
@@ -61,7 +61,7 @@ const Signup = () => {
 
         <Button type="submit" title="Create Account" loading={isLoading} disabled={isLoading} />
 
-        <Link to="/" className="u-link u-text-center mt-20">← Come back</Link>
+        <Link to="/" className="link text-center mt-20">← Come back</Link>
       </form>
     </div>
   );

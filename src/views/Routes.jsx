@@ -7,18 +7,20 @@ import {
 import {
   Route,
   Routes,
-  useLocation
+  useLocation,
 } from "react-router-dom";
 
 //views
-import Home from "./app/Home";
-import Chats from "./app/Chats";
 import Signin from "./auth/Signin";
 import Signup from "./auth/Signup";
+import Channels from "./app/Channels";
+import ChannelsNew from "./app/ChannelsNew";
+import ChannelsIndex from "./app/ChannelsIndex";
 import AuthTemplate from "../components/templates/AuthTemplate";
-import DashTemplate from "../components/templates/DashTemplate";
+import ChannelsTemplate from "../components/templates/ChannelsTemplate";
+import Dashboard from "./app/Dashboard";
 
-export const AuthRoutes = (props) => {
+export const AuthRoutes = props => {
   const location = useLocation();
 
   return (
@@ -26,24 +28,23 @@ export const AuthRoutes = (props) => {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<AuthTemplate />}>
           <Route index element={<Signin />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="signup" element={<Signup />} />
         </Route>
       </Routes>
     </AnimatePresence>
   )
 };
 
-export const MainRoutes = (props) => {
-  const location = useLocation();
+export const MainRoutes = props => {
 
   return (
-    <AnimatePresence>
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<DashTemplate />}>
-          <Route index element={<Home />} />
-          <Route path="/chats" element={<Chats />} />
-        </Route>
-      </Routes>
-    </AnimatePresence>
+    <Routes>
+      <Route path="channels" element={<ChannelsTemplate />}>
+        <Route index element={<ChannelsIndex />} />
+        <Route path=":id" element={<Channels />} />
+        <Route path="new" element={<ChannelsNew />} />
+      </Route>
+      <Route path="dashboard" element={<Dashboard />} />
+    </Routes>
   )
 };

@@ -10,6 +10,7 @@
 
   --box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.25);
   --box-shadow-header: 0px 1px 1px rgba(0, 0, 0, 0.25);
+  --box-shadow-dropdown: 0px 1px 1px rgba(0, 0, 0, 0.25);
 
   /* Errors */
   --bg-input-error-color: rgba(220, 67, 67, 0.03);
@@ -57,8 +58,6 @@ code {
 /*
  *
  *
- *
- *
  */
 .auth {
   width: 100%;
@@ -75,8 +74,6 @@ code {
 
 /*
  *
- *
- *
  * Card
  */
 .card {
@@ -91,8 +88,6 @@ code {
 }
 
 /*
- *
- *
  *
  * Input
  */
@@ -160,11 +155,69 @@ code {
 
 /*
  *
- *
+ * Channels
+ */
+.channel {
+  width: 100%;
+}
+
+.channel__list {
+  width: 100%;
+  padding: 0px;
+}
+
+.channel__item {
+  list-style: none;
+}
+
+.channel__link {
+  padding: 15px 20px;
+  border-radius: 18px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.channel__link:hover {
+  background-color: var(--bg-color-03);
+}
+
+.channel__link--active {
+  background-color: var(--bg-color-03);
+  font-weight: 500;
+}
+
+.channel__title {
+  color: var(--text-color);
+}
+
+.channel__link--active .channel__title {
+  color: var(--primary-color);
+}
+
+.channel__status {
+  display: none;
+  width: 5px;
+  height: 5px;
+  border-radius: 5px;
+  background-color: var(--text-color);
+}
+
+.channel__link--active .channel__status {
+  display: inline-block;
+  background-color: var(--primary-color);
+}
+
+/*
  *
  * Text
  */
-.u-h1 {
+.h1 {
   margin: 0px;
   padding: 0px;
 
@@ -175,7 +228,7 @@ code {
   line-height: 27px;
 }
 
-.u-p-01 {
+.p-01 {
   margin: 0px;
   padding: 0px;
   padding-top: 10px;
@@ -184,7 +237,7 @@ code {
   color: var(--text-color);
 }
 
-.u-link {
+.link {
   color: var(--primary-color);
 
   font-weight: 600;
@@ -193,13 +246,11 @@ code {
   text-decoration: none;
 }
 
-.u-link:hover {
+.link:hover {
   text-decoration: underline;
 }
 
 /*
- *
- *
  *
  * Button
  */
@@ -244,11 +295,97 @@ code {
 
 /*
  *
- *
+ * Dropdown
+ */
+.rounded__btn {
+  border: none;
+
+  width: 38px;
+  height: 38px;
+  border-radius: 38px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--bg-color-03);
+  color: var(--secondary-color);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.rounded__btn:hover,
+.rounded__btn:focus {
+  background-color: var(--bg-color-01) !important;
+}
+
+.dropdown__btn {
+  position: relative;
+}
+
+.dropdown__btn:hover {
+  background-color: var(--border-color);
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+}
+
+.dropdown__nav {
+  list-style: none;
+
+  display: none;
+
+  background-color: var(--bg-color-02);
+  border: 1px solid var(--bg-color-01);
+  box-shadow: var(--box-shadow-dropdown);
+  border-radius: 8px;
+
+  position: absolute;
+  right: 0px;
+  top: -16px;
+
+  padding: 10px 0px;
+}
+
+/* .dropdown__item {} */
+
+.dropdown__link {
+  display: block;
+  min-width: 200px;
+
+  font-weight: 400;
+  color: var(--text-color);
+  text-decoration: none;
+
+  padding: 5px 20px;
+}
+
+.dropdown__link:hover {
+  background-color: var(--bg-color-03) !important;
+}
+
+.dropdown__btn:focus {
+  background-color: var(--border-color);
+}
+
+.dropdown__btn:focus+.dropdown__nav {
+  display: inline-block;
+}
+
+.dropdown__nav:hover {
+  display: inline-block;
+}
+
+/*
  *
  * Geral
  */
-.u-text-error {
+.text-error {
   margin-top: 5px;
   color: var(--error-color);
   font-weight: 400;
@@ -263,7 +400,7 @@ code {
   margin-top: 20px;
 }
 
-.u-text-center {
+.text-center {
   display: block;
   text-align: center;
 }
@@ -319,9 +456,60 @@ code {
   font-weight: 800;
 }
 
+.pt-10 {
+  padding-top: 10px;
+}
+
+.mr-20 {
+  margin-right: 20px;
+}
+
+.ml-20 {
+  margin-left: 20px;
+}
+
+.mt-100 {
+  margin-top: 100px;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
 /*
  *
- *
+ * Avatar
+ */
+.avatar {
+  background-color: var(--text-color);
+  overflow: hidden;
+}
+
+.avatar--sm {
+  width: 38px;
+  height: 38px;
+  border-radius: 38px;
+}
+
+.avatar__img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+/*
  *
  * Spinner
  */
@@ -389,8 +577,6 @@ code {
 }
 
 /*
- *
- *
  *
  * Template
  */

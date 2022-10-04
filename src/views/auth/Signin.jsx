@@ -5,7 +5,7 @@ import Input from "../../components/form/Input";
 import Button from "../../components/form/Button";
 
 //dependencies
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../utils/providers/auth.provider";
 import { useHttp } from "../../utils/hooks/useHttp";
@@ -19,6 +19,7 @@ import options from "../../utils/config/snackbar.config";
 
 const Signin = () => {
   const [openSnackbarError] = useSnackbar(options("error"));
+  const navigate = useNavigate();
   const { setUser } = useAuth();
   const request = useHttp();
 
@@ -29,8 +30,10 @@ const Signin = () => {
   const { mutate, isLoading } = useMutation(signin, {
     onSuccess: response => {
       const newUser = { token: response.data.token };
+
       setUser(newUser);
       localStorage.setItem("ws-chat-user", JSON.stringify(newUser));
+      navigate("/channels");
     },
     onError: error => {
       if (error.response) {
@@ -39,16 +42,16 @@ const Signin = () => {
         openSnackbarError("Erro interno do servidor.");
       }
     },
-    onSettled: () => {}
+    onSettled: () => { }
   });
 
   const doSignin = formData => mutate(formData);
 
   return (
     <div className="card">
-      <h1 className="u-h1">Welcome back 👋🏻</h1>
-      <p className="u-p-01">
-        Not a member? <Link to="/signup" className="u-link">signup now here!</Link>.
+      <h1 className="h1">Welcome back 👋🏻</h1>
+      <p className="p-01">
+        Not a member? <Link to="/signup" className="link">signup now here!</Link>.
       </p>
 
       <form className="mt-10" onSubmit={handleSubmit(doSignin)}>
@@ -59,9 +62,9 @@ const Signin = () => {
           name="pass" register={register} error={errors.pass} />
 
         <Button type="submit" title="Access Account"
-         loading={isLoading} disabled={isLoading} />
+          loading={isLoading} disabled={isLoading} />
 
-        <Link to="/signup" className="u-link u-text-center mt-20">Signup now here!</Link>
+        <Link to="/signup" className="link text-center mt-20">Signup now here!</Link>
       </form>
     </div>
   );
