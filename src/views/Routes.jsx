@@ -39,7 +39,7 @@ export const MainRoutes = props => {
 
   return (
     <Routes>
-      <Route path="channels" element={<ChannelsTemplate />}>
+      <Route path="/channels" element={<ChannelsTemplate />}>
         <Route index element={<ChannelsIndex />} />
         <Route path=":id" element={<Channels />} />
         <Route path="new" element={<ChannelsNew />} />
