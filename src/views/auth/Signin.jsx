@@ -1,5 +1,7 @@
 import React from "react";
 
+import jwt_decode from "jwt-decode";
+
 //components
 import Input from "../../components/form/Input";
 import Button from "../../components/form/Button";
@@ -29,7 +31,12 @@ const Signin = () => {
 
   const { mutate, isLoading } = useMutation(signin, {
     onSuccess: response => {
-      const newUser = { token: response.data.token };
+      var decoded = jwt_decode(response.data.token);
+
+      const newUser = {
+        ...decoded.user,
+        token: response.data.token
+      };
 
       setUser(newUser);
       localStorage.setItem("ws-chat-user", JSON.stringify(newUser));

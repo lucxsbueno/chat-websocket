@@ -195,7 +195,7 @@ code {
   background-color: var(--bg-color-03);
 }
 
-.channel__link--active {
+.channel__link.active {
   background-color: var(--bg-color-03);
   font-weight: 500;
 }
@@ -204,7 +204,7 @@ code {
   color: var(--text-color);
 }
 
-.channel__link--active .channel__title {
+.channel__link.active .channel__title {
   color: var(--primary-color);
 }
 
@@ -216,7 +216,7 @@ code {
   background-color: var(--text-color);
 }
 
-.channel__link--active .channel__status {
+.channel__link.active .channel__status {
   display: inline-block;
   background-color: var(--primary-color);
 }
@@ -645,6 +645,12 @@ code {
 
 .app__header--bg-03 {
   background-color: var(--bg-color-03);
+}
+
+.channel__loading__text {
+  margin-top: 20px;
+  color: var(--text-color);
+  font-size: 16px;
 }
 
 /* .app__menu-body {

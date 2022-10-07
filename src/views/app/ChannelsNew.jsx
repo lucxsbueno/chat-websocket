@@ -13,27 +13,31 @@ import Button from "../../components/form/Button";
 //dependencies
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "react-simple-snackbar";
 import { useHttp } from "../../utils/hooks/useHttp";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useMutation } from "@tanstack/react-query";
-import { useSnackbar } from "react-simple-snackbar";
+import { useAuth } from "../../utils/providers/auth.provider";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 //configs
 import schema from "../../utils/schemas/channel.schema";
 import options from "../../utils/config/snackbar.config";
 
 const ChannelsNew = () => {
+  const { user } = useAuth();
   const request = useHttp();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [openSnackbarError] = useSnackbar(options("error"));
   const [openSnackbarSuccess] = useSnackbar(options("success"));
   const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
-
+  
   const createNewChannel = data => request({ url: "/channels", method: "POST", data });
 
   const { mutate, isLoading } = useMutation(createNewChannel, {
     onSuccess: response => {
       openSnackbarSuccess(response.data.message);
+      queryClient.invalidateQueries(["channels"]);
     },
     onError: error => {
       if (error.response) {
@@ -47,7 +51,8 @@ const ChannelsNew = () => {
 
   const submitChannel = formData => mutate({
     name: formData.channel_name,
-    description: formData.description
+    description: formData.description,
+    user_id: user.id
   });
 
   const goBack = () => {
