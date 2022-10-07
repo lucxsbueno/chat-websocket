@@ -31,13 +31,14 @@ const ChannelsNew = () => {
   const [openSnackbarError] = useSnackbar(options("error"));
   const [openSnackbarSuccess] = useSnackbar(options("success"));
   const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
-  
+
   const createNewChannel = data => request({ url: "/channels", method: "POST", data });
 
   const { mutate, isLoading } = useMutation(createNewChannel, {
     onSuccess: response => {
       openSnackbarSuccess(response.data.message);
       queryClient.invalidateQueries(["channels"]);
+      navigate("/channels/" + response.data.channel.id);
     },
     onError: error => {
       if (error.response) {
@@ -76,7 +77,7 @@ const ChannelsNew = () => {
           <form onSubmit={handleSubmit(submitChannel)}>
             <Input label="Channel's name" type="text" placeholder="Memes"
               name="channel_name" register={register} error={errors.channel_name} />
-            
+
             <Textarea label="Description" rows={5} placeholder="Esse canal irá tratar de..."
               name="description" register={register} error={errors.description} />
 

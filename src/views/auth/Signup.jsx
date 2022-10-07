@@ -37,10 +37,13 @@ const Signup = () => {
         openSnackbarError("Erro interno do servidor!");
       }
     },
-    onSettled: () => {}
+    onSettled: () => { }
   });
 
-  const doSignup = formData => mutate(formData);
+  const doSignup = formData => mutate({
+    ...formData,
+    avatar: "https://avatars.dicebear.com/api/identicon/" + formData.email + ".svg"
+  });
 
   return (
     <div className="card">
