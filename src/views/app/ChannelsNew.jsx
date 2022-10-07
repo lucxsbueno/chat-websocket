@@ -7,6 +7,7 @@ import RoundedButton from "../../components/form/RoundedButton";
 
 //components
 import Input from "../../components/form/Input";
+import Textarea from "../../components/form/Textarea";
 import Button from "../../components/form/Button";
 
 //dependencies
@@ -25,13 +26,14 @@ const ChannelsNew = () => {
   const request = useHttp();
   const navigate = useNavigate();
   const [openSnackbarError] = useSnackbar(options("error"));
+  const [openSnackbarSuccess] = useSnackbar(options("success"));
   const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
 
   const createNewChannel = data => request({ url: "/channels", method: "POST", data });
 
   const { mutate, isLoading } = useMutation(createNewChannel, {
     onSuccess: response => {
-      console.log(response);
+      openSnackbarSuccess(response.data.message);
     },
     onError: error => {
       if (error.response) {
@@ -43,7 +45,10 @@ const ChannelsNew = () => {
     onSettled: () => { }
   });
 
-  const submitChannel = formData => mutate(formData);
+  const submitChannel = formData => mutate({
+    name: formData.channel_name,
+    description: formData.description
+  });
 
   const goBack = () => {
     navigate("/channels");
@@ -66,6 +71,9 @@ const ChannelsNew = () => {
           <form onSubmit={handleSubmit(submitChannel)}>
             <Input label="Channel's name" type="text" placeholder="Memes"
               name="channel_name" register={register} error={errors.channel_name} />
+            
+            <Textarea label="Description" rows={5} placeholder="Esse canal irá tratar de..."
+              name="description" register={register} error={errors.description} />
 
             <Button type="submit" title="Create a new channel"
               loading={isLoading} disabled={isLoading} />

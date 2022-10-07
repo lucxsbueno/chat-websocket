@@ -5,7 +5,7 @@ const colors = {
 };
 
 const options = (color) => ({
-  position: "center",
+  position: "top-center",
   style: {
     backgroundColor: colors[color],
     color: "#FFFFFF",

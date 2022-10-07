@@ -3,6 +3,7 @@
   --primary-color-opacity: #FCE76270;
   --primary-color-hover: #E7D34E;
   --text-color: #FFFFFF;
+  --placeholder-color: rgb(59, 63, 73);
 
   --bg-color-01: #27282C;
   --bg-color-02: #2F3136;
@@ -99,7 +100,7 @@ code {
 }
 
 .input__field {
-  height: 45px;
+  min-height: 45px;
   width: 100%;
 
   background: var(--bg-input-default-color);
@@ -118,8 +119,15 @@ code {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.input__field--textarea {
+  padding: 15px 15px;
+  min-height: 45px;
+  max-height: 132px;
+  resize: none;
+}
+
 .input__field::placeholder {
-  color: #383C46;
+  color: var(--placeholder-color);
   font-weight: 600;
   font-size: 16px;
 }
