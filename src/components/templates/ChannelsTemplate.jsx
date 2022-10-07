@@ -1,6 +1,6 @@
 import React from "react";
 
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { MoreVertical } from "react-feather";
 import { useQuery } from "@tanstack/react-query";
 import { useHttp } from "../../utils/hooks/useHttp";
@@ -12,8 +12,14 @@ import RoundedButton from "../form/RoundedButton";
 
 const ChannelsTemplate = () => {
   const request = useHttp();
+  const navigate = useNavigate();
 
   const { data, isLoading } = useQuery(["channels"], () => request({ url: "/channels", method: "GET" }));
+
+  const openChat = (e, channel) => {
+    e.preventDefault();
+    navigate(`/channels/${channel.id}`, { state: { channel: channel || "" }});
+  }
 
   return (
     <div className="app">
@@ -42,9 +48,10 @@ const ChannelsTemplate = () => {
                   {data?.data.map(channel => {
                     return (
                       <li key={channel.id} className="channel__item">
-                        <NavLink to={`/channels/${channel.id}`} className="channel__link">
-                          <span className="channel__title">{channel.name}</span>
-                          <span className="channel__status"></span>
+                        <NavLink to={`/channels/${channel.id}`}
+                          className="channel__link" onClick={e => openChat(e, channel)}>
+                            <span className="channel__title">{channel.name}</span>
+                            <span className="channel__status"></span>
                         </NavLink>
                       </li>
                     );

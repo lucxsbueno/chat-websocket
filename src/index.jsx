@@ -8,6 +8,8 @@ import {
   QueryClientProvider
 } from "@tanstack/react-query"
 
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 import {
   BrowserRouter as Router
 } from "react-router-dom";
@@ -25,6 +27,7 @@ root.render(
     <Router>
       <AuthProvider>
         <App />
+        <ReactQueryDevtools initialIsOpen={false} />
       </AuthProvider>
     </Router>
   </QueryClientProvider>

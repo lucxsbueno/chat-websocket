@@ -38,7 +38,7 @@ const ChannelsNew = () => {
     onSuccess: response => {
       openSnackbarSuccess(response.data.message);
       queryClient.invalidateQueries(["channels"]);
-      navigate("/channels/" + response.data.channel.id);
+      navigate("/channels/" + response.data.channel.id, { state: { channel: response.data.channel || "" }});
     },
     onError: error => {
       if (error.response) {
