@@ -650,3 +650,12 @@ code {
 /* .app__menu-body {
 
 } */
+
+.nice-background {
+  width: 100%;
+  height: 100vh;
+
+  background-image: url("./assets/imgs/nice4.jpg");
+  background-position: center;
+  background-size: cover;
+}

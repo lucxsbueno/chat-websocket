@@ -1,14 +1,17 @@
 import React from "react";
 
 import { Outlet } from "react-router-dom";
+import { MoreVertical } from "react-feather";
 
+//components
 import Dropdown from "../default/Dropdown";
 import DropdownLink from "../default/DropdownLink";
 import RoundedButton from "../form/RoundedButton";
 
-import { MoreVertical } from "react-feather";
+
 
 const ChannelsTemplate = () => {
+
 
   return (
     <div className="app">

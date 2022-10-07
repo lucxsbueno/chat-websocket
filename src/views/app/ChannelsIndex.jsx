@@ -3,9 +3,7 @@ import React from "react";
 const ChannelsIndex = () => {
 
   return (
-    <div>
-      Channels index
-    </div>
+    <div className="nice-background" />
   )
 }
 
