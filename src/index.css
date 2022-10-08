@@ -31,6 +31,11 @@
   /* Spinner */
   --spinner-default-border-opacity-color: #ffffff7c;
   --spinner-default-border-color: #ffffff;
+
+  /* Scroll bar */
+  --scroll-track-color: rgba(50, 52, 57, 0.29);
+  --scroll-thumb-color: #212225;
+  --scroll-hover-color: #323439;
 }
 
 * {
@@ -308,9 +313,9 @@ code {
 .rounded__btn {
   border: none;
 
-  width: 38px;
-  height: 38px;
-  border-radius: 38px;
+  width: 45px;
+  height: 45px;
+  border-radius: 45px;
 
   display: flex;
   flex-direction: row;
@@ -402,6 +407,10 @@ code {
 
 .mt-10 {
   margin-top: 10px;
+}
+
+.ml-20 {
+  margin-left: 20px;
 }
 
 .mt-20 {
@@ -664,4 +673,95 @@ code {
   background-image: url("./assets/imgs/nice4.jpg");
   background-position: center;
   background-size: cover;
+}
+
+/*
+ *
+ * Chat
+ */
+.chat {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  background-image: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/pattern-3.svg");
+  background-position: center;
+  background-repeat: repeat;
+  background-size: contain;
+  border-top-right-radius: 10px;
+}
+
+.chat__header {
+  min-height: 60px;
+}
+
+.chat__body {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.chat__footer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+
+  padding: 20px;
+}
+
+.text-color {
+  color: var(--text-color);
+}
+
+/*
+ *
+ * Scroll bar
+ */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--scroll-track-color);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--scroll-thumb-color);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scroll-hover-color);
+}
+
+/*
+ *
+ * Textarea da mensagem
+ */
+.input__field__textarea {
+  width: 100%;
+  height: 45px;
+  min-height: 45px;
+  max-height: 132px;
+
+  padding: 10px 15px 12px;
+  resize: none;
+
+  font-size: 16px;
+  color: var(--text-color);
+
+  font-family: "Segoe UI";
+
+  background-color: var(--bg-color-02);
+  border-radius: var(--border-radius);
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.3);
+  border: none;
+  outline: none;
+  color: var(--text-color);
+}
+
+.input__field__textarea::placeholder {
+  color: var(--text-color);
 }

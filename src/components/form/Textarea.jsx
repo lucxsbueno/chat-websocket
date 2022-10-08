@@ -21,7 +21,6 @@ export default function Textarea(props) {
         className="input__field input__field--textarea" placeholder={placeholder} name={name} {...register(name)}>
         {props.children}
       </textarea>
-      {error && <div className="text-error mt-10 ">{error.message}</div>}
     </div>
   );
 }
