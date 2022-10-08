@@ -398,6 +398,10 @@ code {
  *
  * Geral
  */
+.position-relative {
+  position: relative;
+}
+
 .text-error {
   margin-top: 5px;
   color: var(--error-color);
@@ -443,6 +447,16 @@ code {
 .y-p-20 {
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+.x-m-20 {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.y-m-20 {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .p-l-20 {
@@ -704,12 +718,20 @@ code {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-
+  
+  position: relative;
   padding: 20px;
 }
 
 .text-color {
   color: var(--text-color);
+}
+
+.btn__scroll-to-bottom {
+  display: inline-block;
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
 }
 
 /*
