@@ -1,5 +1,7 @@
 import React from "react";
 
+import cuid from "cuid";
+
 //components
 import Input from "../../components/form/Input";
 import Button from "../../components/form/Button";
@@ -37,12 +39,13 @@ const Signup = () => {
         openSnackbarError("Erro interno do servidor!");
       }
     },
-    onSettled: () => { }
+    onSettled: () => {}
   });
 
   const doSignup = formData => mutate({
     ...formData,
-    avatar: "https://avatars.dicebear.com/api/identicon/" + formData.email + ".svg"
+    avatar: "https://avatars.dicebear.com/api/identicon/" + formData.email + ".svg",
+    username: "guest-" + cuid()
   });
 
   return (
