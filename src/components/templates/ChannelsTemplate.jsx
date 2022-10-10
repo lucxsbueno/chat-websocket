@@ -18,7 +18,7 @@ const ChannelsTemplate = () => {
 
   const openChat = (e, channel) => {
     e.preventDefault();
-    navigate(`/channels/${channel.id}`, { state: { channel: channel || "" }});
+    navigate(`/channels/${channel.id}`, { state: { channel: channel || "", channels: data?.data }});
   }
 
   return (

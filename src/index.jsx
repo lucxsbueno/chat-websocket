@@ -18,7 +18,21 @@ import {
   AuthProvider
 } from "./utils/providers/auth.provider";
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+    },
+  }
+});
+
+// {
+//   defaultOptions: {
+//     queries: {
+//       staleTime: Infinity,
+//     },
+//   }
+// }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
