@@ -1,24 +1,42 @@
 import React from "react";
 
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { MoreVertical } from "react-feather";
 import { useQuery } from "@tanstack/react-query";
+import { useSnackbar } from "react-simple-snackbar";
 import { useHttp } from "../../utils/hooks/useHttp";
+import { useAuth } from "../../utils/providers/auth.provider";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 
 //components
+import Spinner from "../default/Spinner";
 import Dropdown from "../default/Dropdown";
 import DropdownLink from "../default/DropdownLink";
 import RoundedButton from "../form/RoundedButton";
 
+import options from "../../utils/config/snackbar.config";
+
 const ChannelsTemplate = () => {
+  const [openSnackbarError] = useSnackbar(options("error"));
+
   const request = useHttp();
+  const { setUser } = useAuth();
   const navigate = useNavigate();
 
-  const { data, isLoading } = useQuery(["channels"], () => request({ url: "/channels", method: "GET" }));
+  const { data, isLoading } = useQuery(["channels"], () => request({ url: "/channels", method: "GET" }), {
+    onError: data => {
+      console.log("[response]:", data);
+      if (data.response.status === 401) {
+        setUser({ token: "" });
+        localStorage.removeItem("ws-chat-user");
+        navigate("/");
+        openSnackbarError("A sessão expirou.");
+      }
+    }
+  });
 
-  const openChat = (e, channel) => {
+  const openChannel = (e, channel) => {
     e.preventDefault();
-    navigate(`/channels/${channel.id}`, { state: { channel: channel || "", channels: data?.data }});
+    navigate(`/channels/${channel.id}`, { state: { channel: channel || "", channels: data?.data } });
   }
 
   return (
@@ -42,16 +60,18 @@ const ChannelsTemplate = () => {
           <div className="app__menu-body">
             <div className="x-p-20">
               <div className="channel">
-                {isLoading && <div className="channel__loading__text">Loading... Please wait!</div>}
+                {isLoading && <div className="channel__loading__text">
+                  <Spinner className="d-inline-block mr-10" /> Loading... Please wait!
+                </div>}
 
                 <ul className="channel__list">
                   {data?.data.map(channel => {
                     return (
                       <li key={channel.id} className="channel__item">
                         <NavLink to={`/channels/${channel.id}`}
-                          className="channel__link" onClick={e => openChat(e, channel)}>
-                            <span className="channel__title">{channel.name}</span>
-                            <span className="channel__status"></span>
+                          className="channel__link" onClick={e => openChannel(e, channel)}>
+                          <span className="channel__title">{channel.name}</span>
+                          <span className="channel__status"></span>
                         </NavLink>
                       </li>
                     );

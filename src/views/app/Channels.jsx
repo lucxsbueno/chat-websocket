@@ -20,14 +20,16 @@ const Channels = () => {
   const [message, updateMessage] = useState("");
   const [sticky, updateSticky] = useState(false);
 
-  const { user } = useAuth()
+  const { user } = useAuth();
   const request = useHttp();
   const params = useParams();
   const location = useLocation();
   const messagesEndRef = useRef(null);
   const queryClient = useQueryClient();
 
+  //all chats
   const { data, isLoading } = useQuery(["chat", params.id], () => request({ url: "/channels/" + params.id, method: "GET" }));
+  //
 
   const scrollObserver = e => {
     const element = e.target;

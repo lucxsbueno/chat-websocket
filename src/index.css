@@ -549,6 +549,11 @@ code {
   margin-top: 20px;
   color: var(--text-color);
   font-size: 16px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 /* .app__menu-body {
@@ -753,6 +758,18 @@ code {
  *
  * Geral
  */
+.mr-10 {
+  margin-right: 10px;
+}
+
+.d-inline-block {
+  display: inline-block;
+}
+
+.text-center {
+  text-align: center;
+}
+
 .position-relative {
   position: relative;
 }

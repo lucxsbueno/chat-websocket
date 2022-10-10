@@ -1,9 +1,9 @@
 import React from "react";
 
-const Spinner = ({color}) => {
+const Spinner = ({color, className}) => {
 
   return(
-    <div className={`spinner ${color === "primary" ? "spinner--primary" : ""}`}></div>
+    <div className={`spinner ${color === "primary" ? "spinner--primary" : ""} ${className}`}></div>
   );
 }
 
