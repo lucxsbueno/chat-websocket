@@ -34,7 +34,6 @@ const Channels = () => {
   const { data, isLoading } = useQuery(["chat", params.id], () => request({ url: "/channels/" + params.id, method: "GET" }), {
     refetchOnWindowFocus: false
   });
-  //
 
   const scrollObserver = e => {
     const element = e.target;
@@ -124,9 +123,6 @@ const Channels = () => {
   const onSendMessage = message => request({ url: `/channels/${params.id}/message`, method: "POST", data: { message }});
 
   const { mutate } = useMutation(onSendMessage, {
-    onSuccess: response => {
-      console.log(response.data);
-    },
     onError: error => {
       if (error.response) {
         openSnackbarError(error.response.data.message);
