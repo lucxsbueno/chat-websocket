@@ -18,13 +18,7 @@ import {
   AuthProvider
 } from "./utils/providers/auth.provider";
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: Infinity,
-    },
-  }
-});
+const queryClient = new QueryClient();
 
 // {
 //   defaultOptions: {
