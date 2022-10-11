@@ -55,13 +55,13 @@ const Channels = () => {
   }, [params.id, data?.data]);
 
   useEffect(() => {
-    socket.on("receive_message", wsData => {
+    socket.on("receive_message", socketData => {
       const cache = queryClient.getQueryData(["chat", params.id]);
 
-      if (wsData.message.id !== cache.data[cache.data.length - 1].id) {
+      if (socketData.message.id !== cache.data[cache.data.length - 1].id) {
         queryClient.setQueryData(["chat", params.id], () => {
           return {
-            data: [...cache.data, wsData.message]
+            data: [...cache.data, socketData.message]
           }
         });
       }
@@ -76,11 +76,11 @@ const Channels = () => {
   }, [params.id, location.state.channels]);
 
   /**
-   * 
-   * 
-   * 
-   * 
-   * 
+   *
+   *
+   *
+   *
+   *
    * Enviar a mensagem
    */
   const sendMessage = () => {
@@ -117,7 +117,7 @@ const Channels = () => {
     updateMessage("");
   }
 
-  const onSendMessage = message => request({ url: `/channels/${params.id}/message`, method: "POST", data: { message }});
+  const onSendMessage = message => request({ url: `/channels/${params.id}/message`, method: "POST", data: { message } });
 
   const { mutate } = useMutation(onSendMessage, {
     onError: error => {
@@ -127,11 +127,11 @@ const Channels = () => {
         openSnackbarError("Erro interno do servidor.");
       }
     },
-    onSettled: () => {}
+    onSettled: () => { }
   });
 
   const allowedEmoji = [..."😊🙃🤪🤓🤯😴💩👻👽🤖👾👐🖖✌️🤟🤘🤙👋🐭🦕🦖🐉"];
-  
+
   useEffect(() => {
     socket.on("user_is_typing", (user) => {
       updateFeedback(user + " is typing... " + [...allowedEmoji][Math.floor(Math.random() * allowedEmoji.length)]);
@@ -145,7 +145,7 @@ const Channels = () => {
   }, []);
 
   const typing = () => {
-    socket.emit("typing", { user: user.name, room: params.id});
+    socket.emit("typing", { user: user.name, room: params.id });
   }
 
   return (
@@ -164,9 +164,7 @@ const Channels = () => {
       <div className="chat__body pt-20" onScroll={e => scrollObserver(e)}>
         {isLoading && <div className="text-color x-p-20 y-p-20">Carregando...</div>}
         {data?.data.map(message => <Message key={message.id} data={data} message={message} />)}
-        
-        {feedback && <div className="text-color x-p-20 mt-10">{feedback}</div>}
-        
+
         <div ref={messagesEndRef} />
       </div>
 
@@ -177,13 +175,18 @@ const Channels = () => {
         </RoundedButton>}
       </div>
 
-      <div className="chat__footer d-flex flex-row align-center">
-        <TextareaControled value={message} onChange={e => updateMessage(e.target.value)} onKeyPress={typing}
-          placeholder={`Enviar uma mensagem no canal ${location.state.channel.name.toLowerCase()} 🤩`} />
+      <div className="chat__bottom">
+        <div className="chat__feedback">
+          {feedback && <div className="text-color x-p-20 mt-10">{feedback}</div>}
+        </div>
+        <div className="chat__footer">
+          <TextareaControled value={message} onChange={e => updateMessage(e.target.value)} onKeyPress={typing}
+            placeholder={`Enviar uma mensagem no canal ${location.state.channel.name.toLowerCase()} 🤩`} />
 
-        <RoundedButton className="text-color ml-20" onClick={sendMessage}>
-          <Send size={20} />
-        </RoundedButton>
+          <RoundedButton className="text-color ml-20" onClick={sendMessage}>
+            <Send size={20} />
+          </RoundedButton>
+        </div>
       </div>
     </div>
   )
