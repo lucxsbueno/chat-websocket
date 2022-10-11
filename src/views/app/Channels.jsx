@@ -58,15 +58,11 @@ const Channels = () => {
       const cache = queryClient.getQueryData(["chat", params.id]);
 
       if (wsData.message.id !== cache.data[cache.data.length - 1].id) {
-        console.log("[etrou no if");
-
         queryClient.setQueryData(["chat", params.id], () => {
           return {
             data: [...cache.data, wsData.message]
           }
         });
-      } else {
-        console.log("[etrou no else");
       }
     });
   }, [location.state.channel.name, params.id, queryClient]);
