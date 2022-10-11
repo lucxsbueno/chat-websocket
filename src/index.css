@@ -906,3 +906,7 @@ code {
 .justify-center {
   justify-content: center;
 }
+
+.pb-0 {
+  padding-bottom: 0px;
+}

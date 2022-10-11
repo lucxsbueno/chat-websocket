@@ -19,6 +19,7 @@ import socket from "../../utils/ws/connection";
 import options from "../../utils/config/snackbar.config";
 
 const Channels = () => {
+  const [feedback, updateFeedback] = useState("");
   const [message, updateMessage] = useState("");
   const [sticky, updateSticky] = useState(false);
   const [openSnackbarError] = useSnackbar(options("error"));
@@ -129,6 +130,24 @@ const Channels = () => {
     onSettled: () => {}
   });
 
+  const allowedEmoji = [..."😊🙃🤪🤓🤯😴💩👻👽🤖👾👐🖖✌️🤟🤘🤙👋🐭🦕🦖🐉"];
+  
+  useEffect(() => {
+    socket.on("user_is_typing", (user) => {
+      updateFeedback(user + " is typing... " + [...allowedEmoji][Math.floor(Math.random() * allowedEmoji.length)]);
+      setTimeout(() => {
+        updateFeedback("");
+      }, 3000);
+    });
+
+    return () => socket.off("user_is_typing");
+    // eslint-disable-next-line
+  }, []);
+
+  const typing = () => {
+    socket.emit("typing", { user: user.name, room: params.id});
+  }
+
   return (
     <div className="chat">
       <div className="app__header app__header--bg-03 chat__header">
@@ -145,7 +164,9 @@ const Channels = () => {
       <div className="chat__body pt-20" onScroll={e => scrollObserver(e)}>
         {isLoading && <div className="text-color x-p-20 y-p-20">Carregando...</div>}
         {data?.data.map(message => <Message key={message.id} data={data} message={message} />)}
-
+        
+        {feedback && <div className="text-color x-p-20 mt-10">{feedback}</div>}
+        
         <div ref={messagesEndRef} />
       </div>
 
@@ -157,7 +178,7 @@ const Channels = () => {
       </div>
 
       <div className="chat__footer d-flex flex-row align-center">
-        <TextareaControled value={message} onChange={e => updateMessage(e.target.value)}
+        <TextareaControled value={message} onChange={e => updateMessage(e.target.value)} onKeyPress={typing}
           placeholder={`Enviar uma mensagem no canal ${location.state.channel.name.toLowerCase()} 🤩`} />
 
         <RoundedButton className="text-color ml-20" onClick={sendMessage}>

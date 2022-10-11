@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 
 const TextareaControled = props => {
-  const { placeholder, value, children } = props;
+  const { placeholder, value, children, onKeyPress } = props;
 
   const textAreaRef = useRef(null);
 
@@ -14,7 +14,7 @@ const TextareaControled = props => {
 
   return (
     <textarea ref={textAreaRef} onChange={onChangeHandler} placeholder={placeholder}
-      value={value} className="input__field__textarea">
+      value={value} className="input__field__textarea" onKeyPress={onKeyPress}>
         {children}
     </textarea>
   );
