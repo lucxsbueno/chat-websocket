@@ -64,7 +64,7 @@ const Channels = () => {
             data: [...cache.data, socketData.message]
           }
         });
-      }
+      } 
     });
   }, [location.state.channel.name, params.id, queryClient]);
 
@@ -130,7 +130,7 @@ const Channels = () => {
     onSettled: () => { }
   });
 
-  const allowedEmoji = [..."😊🙃🤪🤓🤯😴💩👻👽🤖👾👐🖖✌️🤟🤘🤙👋🐭🦕🦖🐉"];
+  const [allowedEmoji] = useState([..."😊🙃🤪🤓🤯😴💩👻👽🤖👾👐🖖✌️🤟🤘🤙👋🐭🦕🦖🐉"]);
 
   useEffect(() => {
     socket.on("user_is_typing", (user) => {
@@ -163,6 +163,7 @@ const Channels = () => {
 
       <div className="chat__body pt-20" onScroll={e => scrollObserver(e)}>
         {isLoading && <div className="text-color x-p-20 y-p-20">Carregando...</div>}
+      
         {data?.data.map(message => <Message key={message.id} data={data} message={message} />)}
 
         <div ref={messagesEndRef} />

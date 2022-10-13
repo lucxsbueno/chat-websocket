@@ -36,9 +36,20 @@ const ChannelsNew = () => {
 
   const { mutate, isLoading } = useMutation(createNewChannel, {
     onSuccess: response => {
+      const channel = response.data.channel;
       openSnackbarSuccess(response.data.message);
       queryClient.invalidateQueries(["channels"]);
-      navigate("/channels/" + response.data.channel.id, { state: { channel: response.data.channel || "" }});
+      navigate("/channels/" + channel.id, { 
+        state: {
+          channel: {
+            id: channel.id,
+            name: channel.name,
+            description: channel.description,
+            chat: {
+              id: channel.chat_id
+            }
+          }
+        }});
     },
     onError: error => {
       if (error.response) {
