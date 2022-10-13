@@ -676,6 +676,10 @@ code {
   margin-left: 15px;
 }
 
+.chat__name {
+  font-weight: 400;
+}
+
 .chat__text__wrapper {
   display: inline-block;
   background: var(--bg-color-02);

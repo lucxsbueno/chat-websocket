@@ -19,7 +19,7 @@ const Default = props => {
 
         <div className="chat__message__box">
           <span className="chat__username">
-            {message.user.username} <span className="chat__message__hour">{"• " + moment(message.created_at).calendar()}</span>
+            <span className="chat__name">{message.user.name}</span> @{message.user.username} <span className="chat__message__hour">{"• " + moment(message.created_at).calendar()}</span>
           </span>
           <div className="chat__text__wrapper">
             <span className="chat__text">
