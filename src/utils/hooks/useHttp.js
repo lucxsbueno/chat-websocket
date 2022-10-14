@@ -1,8 +1,10 @@
 import axios from "axios";
 
-import {
-  useAuth
-} from "../providers/auth.provider";
+import options from "../../utils/config/snackbar.config";
+
+import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "react-simple-snackbar";
+import { useAuth } from "../providers/auth.provider";
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL_DEV,
@@ -10,7 +12,9 @@ const instance = axios.create({
 });
 
 export const useHttp = () => {
-  const { user } = useAuth();
+  const navigate = useNavigate();
+  const { user, setUser } = useAuth();
+  const [openSnackbarError] = useSnackbar(options("error"));
 
   const bearerToken = user.token
     ? "Bearer " + user.token
@@ -30,9 +34,21 @@ export const useHttp = () => {
       data: data
     };
 
-    const response = await instance(options);
+    try {
+      const response = await instance(options);
 
-    return response;
+      return response;
+    } catch (e) {
+      if (e.response.status === 401) {
+        openSnackbarError("A sessão expirou.");
+        
+        setTimeout(() => {
+          setUser({ token: "" });
+          localStorage.removeItem("ws-chat-user");
+          navigate("/");
+        }, 1000);
+      }
+    }
   }
 
   return request;

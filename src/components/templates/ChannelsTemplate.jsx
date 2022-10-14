@@ -2,9 +2,7 @@ import React from "react";
 
 import { MoreVertical } from "react-feather";
 import { useQuery } from "@tanstack/react-query";
-import { useSnackbar } from "react-simple-snackbar";
 import { useHttp } from "../../utils/hooks/useHttp";
-import { useAuth } from "../../utils/providers/auth.provider";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 
 //components
@@ -13,26 +11,11 @@ import Dropdown from "../default/Dropdown";
 import DropdownLink from "../default/DropdownLink";
 import RoundedButton from "../form/RoundedButton";
 
-import options from "../../utils/config/snackbar.config";
-
 const ChannelsTemplate = () => {
-  const [openSnackbarError] = useSnackbar(options("error"));
-
   const request = useHttp();
-  const { setUser } = useAuth();
   const navigate = useNavigate();
 
-  const { data, isLoading } = useQuery(["channels"], () => request({ url: "/channels", method: "GET" }), {
-    onError: data => {
-      console.log("[response]:", data);
-      if (data.response.status === 401) {
-        setUser({ token: "" });
-        localStorage.removeItem("ws-chat-user");
-        navigate("/");
-        openSnackbarError("A sessão expirou.");
-      }
-    }
-  });
+  const { data, isLoading } = useQuery(["channels"], () => request({ url: "/channels", method: "GET" }));
 
   const openChannel = (e, channel) => {
     e.preventDefault();
