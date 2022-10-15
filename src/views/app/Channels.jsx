@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 
 import { useHttp } from "../../utils/hooks/useHttp";
-import { useParams, useLocation } from "react-router-dom";
-import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
-import { useAuth } from "../../utils/providers/auth.provider";
 import { useSnackbar } from "react-simple-snackbar";
+import { useTyping } from "../../utils/hooks/useTyping";
+import { useParams, useLocation } from "react-router-dom";
+import { useAuth } from "../../utils/providers/auth.provider";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 
 //icons
 import { ChevronDown, Send } from "react-feather";
@@ -19,7 +20,6 @@ import socket from "../../utils/ws/connection";
 import options from "../../utils/config/snackbar.config";
 
 const Channels = () => {
-  const [feedback, updateFeedback] = useState("");
   const [message, updateMessage] = useState("");
   const [sticky, updateSticky] = useState(false);
   const [openSnackbarError] = useSnackbar(options("error"));
@@ -27,6 +27,7 @@ const Channels = () => {
   const { user } = useAuth();
   const request = useHttp();
   const params = useParams();
+  const typing = useTyping();
   const location = useLocation();
   const messagesEndRef = useRef(null);
   const queryClient = useQueryClient();
@@ -88,7 +89,8 @@ const Channels = () => {
       id: cuid(),
       type: "text",
       body: message,
-      created_at: new Date(),
+      created_at: new Date().getTime().toString(),
+      updated_at: new Date().getTime().toString(),
       user: {
         id: user.id,
         username: user.username,
@@ -100,6 +102,8 @@ const Channels = () => {
       id: cuid(),
       type: "text",
       body: message,
+      created_at: new Date().getTime().toString(),
+      updated_at: new Date().getTime().toString(),
       user_id: user.id,
       chat_id: location.state.channel.chat.id
     });
@@ -130,21 +134,7 @@ const Channels = () => {
     onSettled: () => { }
   });
 
-  const [allowedEmoji] = useState([..."😊🙃🤪🤓🤯😴💩👻👽🤖👾👐🖖✌️🤟🤘🤙👋🐭🦕🦖🐉"]);
-
-  useEffect(() => {
-    socket.on("user_is_typing", (user) => {
-      updateFeedback(user + " is typing... " + [...allowedEmoji][Math.floor(Math.random() * allowedEmoji.length)]);
-      setTimeout(() => {
-        updateFeedback("");
-      }, 3000);
-    });
-
-    return () => socket.off("user_is_typing");
-    // eslint-disable-next-line
-  }, []);
-
-  const typing = () => {
+  const onTyping = () => {
     socket.emit("typing", { user: user.name, room: params.id });
   }
 
@@ -178,10 +168,10 @@ const Channels = () => {
 
       <div className="chat__bottom">
         <div className="chat__feedback">
-          {feedback && <div className="text-color x-p-20 mt-10">{feedback}</div>}
+          {typing && <div className="text-color x-p-20 mt-10">{typing}</div>}
         </div>
         <div className="chat__footer">
-          <TextareaControled value={message} onChange={e => updateMessage(e.target.value)} onKeyPress={typing}
+          <TextareaControled value={message} onChange={e => updateMessage(e.target.value)} onKeyPress={onTyping}
             placeholder={`Enviar uma mensagem no canal ${location.state.channel.name.toLowerCase()} 🤩`} />
 
           <RoundedButton className="text-color ml-20" onClick={sendMessage}>
