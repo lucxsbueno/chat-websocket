@@ -11,9 +11,10 @@ import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { ChevronDown, Send } from "react-feather";
 
 //components
+import Message from "../../components/messages/Message";
+import Messages from "../../components/messages/Messages";
 import RoundedButton from "../../components/form/RoundedButton";
 import TextareaControled from "../../components/form/TextareaControled";
-import Message from "../../components/messages/Message";
 
 import cuid from "cuid";
 import socket from "../../utils/ws/connection";
@@ -89,8 +90,7 @@ const Channels = () => {
       id: cuid(),
       type: "text",
       body: message,
-      created_at: new Date().getTime().toString(),
-      updated_at: new Date().getTime().toString(),
+      created_at: new Date(),
       user: {
         id: user.id,
         username: user.username,
@@ -102,8 +102,6 @@ const Channels = () => {
       id: cuid(),
       type: "text",
       body: message,
-      created_at: new Date().getTime().toString(),
-      updated_at: new Date().getTime().toString(),
       user_id: user.id,
       chat_id: location.state.channel.chat.id
     });
@@ -154,7 +152,9 @@ const Channels = () => {
       <div className="chat__body pt-20" onScroll={e => scrollObserver(e)}>
         {isLoading && <div className="text-color x-p-20 y-p-20">Carregando...</div>}
       
-        {data?.data.map(message => <Message key={message.id} data={data} message={message} />)}
+        {/* {data?.data.map(message => <Message key={message.id} data={data} message={message} />)} */}
+
+        {!isLoading && <Messages messages={data} />}
 
         <div ref={messagesEndRef} />
       </div>

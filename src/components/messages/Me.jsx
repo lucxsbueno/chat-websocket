@@ -19,7 +19,7 @@ const Me = props => {
           </div>
         </div>
         <div className="mt-10 ml-10 text-color chat__message__hour">
-          {moment(Number(message.created_at)).calendar()}
+          {moment(Number(message[0])).calendar().toLocaleLowerCase()}
         </div>
       </div>
     </div>

@@ -13,13 +13,13 @@ const Default = props => {
       <div className="d-flex flex-row">
         <div className="chat__avatar">
           <div className="chat__avatar__wrapper">
-            <img className="chat__avatar__img" src={message.user.avatar} />
+            <img alt="" className="chat__avatar__img" src={message.user.avatar} />
           </div>
         </div>
 
         <div className="chat__message__box">
           <span className="chat__username">
-            {message.user.username} <span className="chat__message__hour">{"• " + moment(Number(message.created_at)).calendar()}</span>
+            {message.user.username} <span className="chat__message__hour">{"• " + moment(Number(message.created_at)).calendar().toLocaleLowerCase()}</span>
           </span>
           <div className="chat__text__wrapper">
             <span className="chat__text">
