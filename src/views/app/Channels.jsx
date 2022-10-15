@@ -11,7 +11,6 @@ import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { ChevronDown, Send } from "react-feather";
 
 //components
-import Message from "../../components/messages/Message";
 import Messages from "../../components/messages/Messages";
 import RoundedButton from "../../components/form/RoundedButton";
 import TextareaControled from "../../components/form/TextareaControled";

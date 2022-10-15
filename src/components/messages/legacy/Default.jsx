@@ -27,7 +27,7 @@ const Default = props => {
             </span>
           </div>
         </div>
-      </div>
+      </div> 
     </div>
   );
 }
