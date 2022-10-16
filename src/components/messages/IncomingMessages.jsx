@@ -20,7 +20,7 @@ const IncomingMessages = props => {
 
           <div className="chat__message__box">
             <span className="chat__username">
-              {message[1][0].user.username} <span className="chat__message__hour">{"• " + moment(message[1][0].created_at).calendar().toLocaleLowerCase()}</span>
+              <span className="fw-4">{message[1][0].user.name}</span> @{message[1][0].user.username} <span className="chat__message__hour">{"• " + moment(message[1][0].created_at).calendar().toLocaleLowerCase()}</span>
             </span>
             <div className="chat__text__wrapper">
               <span className="chat__text">
