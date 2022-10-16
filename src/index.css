@@ -488,22 +488,21 @@ code {
  */
 .app {
   width: 100%;
-  height: 100vh;
-
-  padding: 20px;
+  height: calc(100vh - 60px);
 
   background-color: var(--bg-color-01);
 }
 
+.app__template {
+  height: 100vh;
+}
+
 .app__wrapper {
   width: 100%;
-  height: calc(100vh - 40px);
+  height: 100%;
 
   display: flex;
   flex-direction: row;
-
-  border-radius: 8px;
-  overflow: hidden;
 }
 
 .app__menu {
@@ -562,11 +561,88 @@ code {
 
 .nice-background {
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 60px);
 
-  background-image: url("./assets/imgs/nice4.jpg");
+  background-image: url("./assets/imgs/nice6.jpg");
   background-position: center;
   background-size: cover;
+}
+
+/*
+ *
+ * Header nav
+ */
+/* .nav {} */
+
+.nav__menu {
+  list-style: none;
+
+  margin: 0px;
+  padding-left: 50px;
+
+  display: flex;
+  flex-direction: row;
+}
+
+.nav__item {
+  margin-right: 20px;
+}
+
+.nav__link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  
+  height: 60px;
+
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.nav__link.active {
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+.nav__link:hover {
+  text-decoration: underline;
+}
+
+/*
+ *
+ * Logo
+ */
+.logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.logo__img {
+  width: 32px;
+  height: 38px;
+
+  background-image: url("./assets/imgs/logo.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.logo__title {
+  margin-left: 10px;
+}
+
+.logo__span1 {
+  display: inline-block;
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+.logo__span2 {
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary-color);
 }
 
 /*
@@ -578,7 +654,15 @@ code {
   display: flex;
   flex-direction: column;
 
-  background-image: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/pattern-3.svg");
+  /* background-image: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/pattern-32.svg"); */
+  /* background-image: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/pattern-31.svg"); */
+  /* background-image: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/pattern-30.svg"); */
+  /* background-image: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/pattern-29.svg"); */
+  background-image: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/pattern-28.svg");
+  /* background-image: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/pattern-27.svg"); */
+  /* background-image: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/pattern-26.svg"); */
+  /* background-image: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/pattern-25.svg"); */
+  /* background-image: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/pattern-3.svg"); */
   background-position: center;
   background-repeat: repeat;
   background-size: contain;
@@ -819,6 +903,8 @@ code {
 }
 
 .heading-sm {
+  margin-top: 0px;
+  margin-bottom: 0px;
   font-weight: 600;
   font-size: 16px;
   line-height: 19px;

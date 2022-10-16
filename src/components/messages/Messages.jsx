@@ -15,12 +15,14 @@ const Messages = props => {
   const renderMessageGroup = (message, index) => {
     const groupMessage = message[1][0];
 
-    return groupMessage.user.id == user.id
+    return groupMessage.user.id === user.id
       ? <SenderMessages key={index} message={message} />
       : <IncomingMessages key={index} message={message} />;
   }
 
-  return hasMessages && Object.entries(groupMessages).map((message, index) => renderMessageGroup(message, index));
+  return hasMessages
+    && Object.entries(groupMessages).map((message, index) =>
+      renderMessageGroup(message, index));
 }
 
 export default Messages;

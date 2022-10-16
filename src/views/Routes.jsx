@@ -13,12 +13,15 @@ import {
 //views
 import Signin from "./auth/Signin";
 import Signup from "./auth/Signup";
+import Friends from "./app/Friends";
 import Channels from "./app/Channels";
+import Dashboard from "./app/Dashboard";
 import ChannelsNew from "./app/ChannelsNew";
+import Notifications from "./app/Notifications";
 import ChannelsIndex from "./app/ChannelsIndex";
 import AuthTemplate from "../components/templates/AuthTemplate";
 import ChannelsTemplate from "../components/templates/ChannelsTemplate";
-import Dashboard from "./app/Dashboard";
+import AppTemplate from "../components/templates/AppTemplate";
 
 export const AuthRoutes = props => {
   const location = useLocation();
@@ -39,12 +42,16 @@ export const MainRoutes = props => {
 
   return (
     <Routes>
-      <Route path="/channels" element={<ChannelsTemplate />}>
-        <Route index element={<ChannelsIndex />} />
-        <Route path=":id" element={<Channels />} />
-        <Route path="new" element={<ChannelsNew />} />
+      <Route path="/" element={<AppTemplate />}>
+        <Route index element={<Dashboard />} />
+        <Route path="friends" element={<Friends />} />
+        <Route path="notifications" element={<Notifications />} />
+        <Route path="channels" element={<ChannelsTemplate />}>
+          <Route index element={<ChannelsIndex />} />
+          <Route path=":id" element={<Channels />} />
+          <Route path="new" element={<ChannelsNew />} />
+        </Route>
       </Route>
-      <Route path="dashboard" element={<Dashboard />} />
     </Routes>
   )
 };
