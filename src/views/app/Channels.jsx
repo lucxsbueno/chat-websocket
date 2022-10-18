@@ -18,10 +18,11 @@ import TextareaControled from "../../components/form/TextareaControled";
 import cuid from "cuid";
 import socket from "../../utils/ws/connection";
 import options from "../../utils/config/snackbar.config";
+import { useScroll } from "../../utils/hooks/useScroll";
 
 const Channels = () => {
   const [message, updateMessage] = useState("");
-  const [sticky, updateSticky] = useState(false);
+  const { sticky, scrollObserver } = useScroll();
   const [openSnackbarError] = useSnackbar(options("error"));
 
   const { user } = useAuth();
@@ -36,13 +37,6 @@ const Channels = () => {
   const { data, isLoading } = useQuery(["chat", params.id], () => request({ url: "/channels/" + params.id, method: "GET" }), {
     refetchOnWindowFocus: false
   });
-
-  const scrollObserver = e => {
-    const element = e.target;
-    const totalScrollHeight = element.scrollHeight - element.clientHeight;
-    //se estiver scrollado pra cima o botão aparece
-    updateSticky(element.scrollTop !== totalScrollHeight);
-  }
 
   const scrollToBottom = behavior => {
     messagesEndRef.current?.scrollIntoView({
