@@ -133,9 +133,9 @@ const Channels = () => {
     <div className="chat">
       <div className="app__header app__header--bg-03 chat__header">
         <div className="d-flex flex-row align-center justify-center">
-          <div className="avatar avatar--sm mr-20">
+          {/* <div className="avatar avatar--sm mr-20">
             <img className="avatar__img" alt="Profile user information" src="https://cdn.dribbble.com/users/230875/screenshots/12078079/media/c08285d2e039896a565cffeb5eb44a15.jpg?compress=1&resize=400x300&vertical=top" />
-          </div>
+          </div> */}
           <h2 className="p-sm fw-4">{location.state.channel.name}</h2>
         </div>
         <div className="x-p-20 y-p-20">

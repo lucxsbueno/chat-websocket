@@ -65,7 +65,7 @@ const Signin = () => {
         <Input label="Endereço de e-mail" type="text" placeholder="john@doe"
           name="email" register={register} error={errors.email} />
 
-        <Input label="Senha de acesso" type="text" placeholder="exemplo123"
+        <Input label="Senha de acesso" type="password" placeholder="exemplo123"
           name="pass" register={register} error={errors.pass} />
 
         <Button type="submit" title="Access Account"

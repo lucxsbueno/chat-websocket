@@ -1,15 +1,11 @@
 import React from "react";
 
-const Friends = () => {
+const Account = () => {
 
   return (
     <div>
       <div className="app__header app__header--bg-03">
-        <h2 className="p-sm fw-5">Friends</h2>
-
-        <div className="x-p-20 y-p-20">
-          
-        </div>
+        <h2 className="p-sm fw-5">Minha conta</h2>
       </div>
 
       <div>
@@ -19,4 +15,4 @@ const Friends = () => {
   );
 }
 
-export default Friends;
+export default Account;

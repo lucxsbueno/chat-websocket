@@ -27,6 +27,7 @@
   /* Default values */
   --border-radius: 8px;
   --error-color: #DC4343;
+  --chat-message-hover: rgba(255, 255, 255, 0.055);
 
   /* Spinner */
   --spinner-default-border-opacity-color: #ffffff7c;
@@ -563,9 +564,33 @@ code {
   width: 100%;
   height: calc(100vh - 60px);
 
-  background-image: url("./assets/imgs/nice6.jpg");
+  background-image: url("./assets/imgs/nice4.jpg");
   background-position: center;
   background-size: cover;
+}
+
+/*
+ *
+ * Header nav
+ */
+.app__badge {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.app__badge:hover {
+  opacity: 0.90;
+}
+
+.app__badge__title {
+  margin-right: 20px;
+
+  color: var(--text-color);
+}
+
+.app__badge__title.active {
+  color: var(--primary-color);
 }
 
 /*
@@ -578,7 +603,7 @@ code {
   list-style: none;
 
   margin: 0px;
-  padding-left: 50px;
+  padding-left: 0px;
 
   display: flex;
   flex-direction: row;
@@ -658,11 +683,11 @@ code {
   /* background-image: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/pattern-31.svg"); */
   /* background-image: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/pattern-30.svg"); */
   /* background-image: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/pattern-29.svg"); */
-  background-image: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/pattern-28.svg");
+  /* background-image: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/pattern-28.svg"); */
   /* background-image: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/pattern-27.svg"); */
   /* background-image: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/pattern-26.svg"); */
   /* background-image: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/pattern-25.svg"); */
-  /* background-image: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/pattern-3.svg"); */
+  background-image: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/pattern-3.svg");
   background-position: center;
   background-repeat: repeat;
   background-size: contain;
@@ -712,7 +737,7 @@ code {
 }
 
 .chat__message:hover {
-  background-color: rgba(255, 255, 255, 0.055);
+  background-color: var(--chat-message-hover);
 }
 
 .chat__avatar {

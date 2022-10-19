@@ -22,6 +22,7 @@ import ChannelsIndex from "./app/ChannelsIndex";
 import AuthTemplate from "../components/templates/AuthTemplate";
 import ChannelsTemplate from "../components/templates/ChannelsTemplate";
 import AppTemplate from "../components/templates/AppTemplate";
+import Account from "./app/Account";
 
 export const AuthRoutes = props => {
   const location = useLocation();
@@ -45,6 +46,7 @@ export const MainRoutes = props => {
       <Route path="/" element={<AppTemplate />}>
         <Route index element={<Dashboard />} />
         <Route path="friends" element={<Friends />} />
+        <Route path="account" element={<Account />} />
         <Route path="notifications" element={<Notifications />} />
         <Route path="channels" element={<ChannelsTemplate />}>
           <Route index element={<ChannelsIndex />} />
