@@ -18,10 +18,9 @@ import schema from "../../utils/schemas/account.schema";
 import options from "../../utils/config/snackbar.config";
 
 const Account = () => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const [openSnackbarSuccess] = useSnackbar(options("success"));
   const [openSnackbarError] = useSnackbar(options("error"));
-  const navigate = useNavigate();
   const request = useHttp();
 
   const { register, handleSubmit, formState: { errors } } = useForm({ 
@@ -33,13 +32,32 @@ const Account = () => {
     }
   });
 
-  const signup = data => request({ url: "/users/signup", method: "POST", data });
+  const updateAccount = data => request({ url: "/users/" + user.id, method: "PUT", data });
 
-  const { mutate, isLoading } = useMutation(signup, {
+  const { mutate, isLoading } = useMutation(updateAccount, {
     onSuccess: response => {
-      if (response.data) {
-        openSnackbarSuccess(response.data.message);
-        navigate("/");
+      if (response?.data) {
+
+        if (response.data.error) {
+          openSnackbarError(response.data.message);
+        } else {
+          openSnackbarSuccess(response.data.message);
+
+          const updatedUser = {
+            avatar: user.avatar,
+            created_at: user.created_at,
+            email: response.data.user.email,
+            id: user.id,
+            name: response.data.user.name,
+            token: user.token,
+            updated_at: user.updated_at,
+            username: response.data.user.username
+          };
+
+          setUser(updatedUser);
+
+          localStorage.setItem("ws-chat-user", JSON.stringify(updatedUser));
+        }
       }
     },
     onError: error => {
@@ -52,10 +70,8 @@ const Account = () => {
     onSettled: () => { }
   });
 
-  const doSignup = formData => mutate({
-    ...formData,
-    avatar: "https://avatars.dicebear.com/api/identicon/" + formData.email + ".svg",
-    username: "guest-" + cuid()
+  const doUpdateAccount = formData => mutate({
+    ...formData
   });
 
   return (
@@ -72,7 +88,7 @@ const Account = () => {
         </div>
 
         <div className="card mt-20">
-          <form onSubmit={handleSubmit(doSignup)}>
+          <form onSubmit={handleSubmit(doUpdateAccount)}>
             <Input label="Nome completo" type="text" placeholder="John Doe"
               name="name" register={register} error={errors.name} />
 
