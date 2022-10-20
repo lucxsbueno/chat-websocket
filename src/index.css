@@ -617,7 +617,7 @@ code {
   display: flex;
   flex-direction: row;
   align-items: center;
-  
+
   height: 60px;
 
   text-decoration: none;
@@ -869,6 +869,31 @@ code {
 
 /*
  *
+ * Account
+ */
+/* .account__header {} */
+
+.account__avatar {
+  width: 94px;
+  height: 94px;
+
+  border-radius: 50%;
+
+  background-color: var(--text-color);
+}
+
+.account__greetings {
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+.account__name {
+  font-weight: 600;
+}
+
+/*
+ *
  * Geral
  */
 .mb-20 {
@@ -1014,6 +1039,10 @@ code {
   display: flex;
 }
 
+.flex-column {
+  flex-direction: column;
+}
+
 .flex-row {
   flex-direction: row;
 }
@@ -1032,4 +1061,8 @@ code {
 
 .pb-0 {
   padding-bottom: 0px;
+}
+
+.container-fluid {
+  width: 100%;
 }
