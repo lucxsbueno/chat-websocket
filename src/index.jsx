@@ -18,7 +18,7 @@ root.render(
     <Router>
       <AuthProvider>
         <App />
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       </AuthProvider>
     </Router>
   </QueryClientProvider>
