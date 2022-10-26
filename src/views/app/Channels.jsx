@@ -9,7 +9,7 @@ import { useAuth } from "../../utils/providers/auth.provider";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 
 //icons
-import { Send } from "react-feather";
+import { Send, ChevronDown } from "react-feather";
 
 //components
 import Messages from "../../components/messages/Messages";
@@ -23,6 +23,7 @@ import options from "../../utils/config/snackbar.config";
 const Channels = () => {
   const [message, updateMessage] = useState("");
   const [openSnackbarError] = useSnackbar(options("error"));
+  const messagesEndRef = useRef(null);
 
   const { user } = useAuth();
   const request = useHttp();
@@ -30,6 +31,7 @@ const Channels = () => {
   const typing = useTyping();
   const location = useLocation();
   const queryClient = useQueryClient();
+  const { scrollObserver, sticky } = useScroll();
 
   //all chats
   const { data, isLoading } = useQuery(["chat", params.id], () => request({ url: "/channels/" + params.id, method: "GET" }), {
@@ -56,6 +58,17 @@ const Channels = () => {
 
     socket.emit("join_room", { room: params.id });
   }, [params.id, location.state.channels]);
+
+  const scrollToBottom = behavior => {
+    messagesEndRef.current?.scrollIntoView({
+      behavior: behavior
+    });
+  }
+
+  useEffect(() => {
+    const behavior = "auto";
+    scrollToBottom(behavior);
+  }, []);
 
   /**
    *
