@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
+import { FpsView } from "react-fps";
 import { useHttp } from "../../utils/hooks/useHttp";
 import { useSnackbar } from "react-simple-snackbar";
 import { useScroll } from "../../utils/hooks/useScroll";
@@ -10,24 +11,26 @@ import { useGroupMessages } from "../../utils/hooks/useGroupMessages";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 
 //icons
-import { ChevronDown, Send } from "react-feather";
+import { Send } from "react-feather";
 
 //components
-import Messages from "../../components/messages/Messages";
 import RoundedButton from "../../components/form/RoundedButton";
 import TextareaControled from "../../components/form/TextareaControled";
 
 import cuid from "cuid";
 import socket from "../../utils/ws/connection";
 import options from "../../utils/config/snackbar.config";
+<<<<<<< HEAD
 
 //components
 import SenderMessages from "../../components/messages/SenderMessages";
 import IncomingMessages from "../../components/messages/IncomingMessages";
+=======
+import ChatMessages from "../../components/messages/ChatMessages";
+>>>>>>> 67f2b7790c7feafeff1333c07d4306187318d14e
 
 const Channels = () => {
   const [message, updateMessage] = useState("");
-  const { sticky, scrollObserver } = useScroll();
   const [openSnackbarError] = useSnackbar(options("error"));
 
   const { user } = useAuth();
@@ -35,24 +38,12 @@ const Channels = () => {
   const params = useParams();
   const typing = useTyping();
   const location = useLocation();
-  const messagesEndRef = useRef(null);
   const queryClient = useQueryClient();
 
   //all chats
   const { data, isLoading } = useQuery(["chat", params.id], () => request({ url: "/channels/" + params.id, method: "GET" }), {
     refetchOnWindowFocus: false
   });
-
-  const scrollToBottom = behavior => {
-    messagesEndRef.current?.scrollIntoView({
-      behavior: behavior
-    });
-  }
-
-  useEffect(() => {
-    const behavior = "auto";
-    scrollToBottom(behavior);
-  }, [params.id, data?.data]);
 
   useEffect(() => {
     socket.on("receive_message", socketData => {
@@ -64,7 +55,7 @@ const Channels = () => {
             data: [...cache.data, socketData.message]
           }
         });
-      } 
+      }
     });
   }, [location.state.channel.name, params.id, queryClient]);
 
@@ -146,6 +137,7 @@ const Channels = () => {
 
   return (
     <div className="chat">
+      {/* <FpsView width={230} left={20} bottom={20} top={null} /> */}
       <div className="app__header app__header--bg-03 chat__header">
         <div className="d-flex flex-row align-center justify-center">
           {/* <div className="avatar avatar--sm mr-20">
@@ -157,6 +149,7 @@ const Channels = () => {
         </div>
       </div>
 
+<<<<<<< HEAD
       <div className="chat__body pt-20" onScroll={e => scrollObserver(e)}>
         {isLoading && <div className="text-color x-p-20 y-p-20">Carregando...</div>}
       
@@ -173,6 +166,9 @@ const Channels = () => {
           <ChevronDown />
         </RoundedButton>}
       </div>
+=======
+      <ChatMessages isLoading={isLoading} data={data} />
+>>>>>>> 67f2b7790c7feafeff1333c07d4306187318d14e
 
       <div className="chat__bottom">
         <div className="chat__feedback">
