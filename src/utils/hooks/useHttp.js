@@ -7,7 +7,7 @@ import { useSnackbar } from "react-simple-snackbar";
 import { useAuth } from "../providers/auth.provider";
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL_DEV,
+  baseURL: process.env.REACT_APP_BASE_URL_PROD,
   timeout: process.env.REACT_APP_REQUEST_TIMEOUT
 });
 
@@ -41,7 +41,7 @@ export const useHttp = () => {
     } catch (e) {
       if (e.response.status === 401) {
         openSnackbarError("A sessão expirou.");
-        
+
         setTimeout(() => {
           setUser({ token: "" });
           localStorage.removeItem("ws-chat-user");

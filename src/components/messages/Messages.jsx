@@ -11,8 +11,8 @@ const Messages = props => {
   const { user } = useAuth();
   const { data: messages } = props.messages;
   const { hasMessages, groupMessages } = useGroupMessages(messages);
-  
-  useEffect(() => { props.scroll("auto") }, [groupMessages]);
+
+  useEffect(() => { props.scroll("auto") }, [groupMessages, props]);
 
   const renderMessageGroup = (message, index) => {
     const groupMessage = message[1][0];
