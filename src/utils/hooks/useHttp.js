@@ -7,8 +7,8 @@ import { useSnackbar } from "react-simple-snackbar";
 import { useAuth } from "../providers/auth.provider";
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL_PROD,
-  timeout: process.env.REACT_APP_REQUEST_TIMEOUT
+  baseURL: process.env.PROD,
+  timeout: process.env.REQUEST_TIMEOUT
 });
 
 export const useHttp = () => {
