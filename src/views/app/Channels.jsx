@@ -9,7 +9,7 @@ import { useAuth } from "../../utils/providers/auth.provider";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 
 //icons
-import { ChevronDown, Send } from "react-feather";
+import { Send } from "react-feather";
 
 //components
 import Messages from "../../components/messages/Messages";
@@ -22,7 +22,6 @@ import options from "../../utils/config/snackbar.config";
 
 const Channels = () => {
   const [message, updateMessage] = useState("");
-  const { sticky, scrollObserver } = useScroll();
   const [openSnackbarError] = useSnackbar(options("error"));
 
   const { user } = useAuth();
@@ -30,24 +29,12 @@ const Channels = () => {
   const params = useParams();
   const typing = useTyping();
   const location = useLocation();
-  const messagesEndRef = useRef(null);
   const queryClient = useQueryClient();
 
   //all chats
   const { data, isLoading } = useQuery(["chat", params.id], () => request({ url: "/channels/" + params.id, method: "GET" }), {
     refetchOnWindowFocus: false
   });
-
-  const scrollToBottom = behavior => {
-    messagesEndRef.current?.scrollIntoView({
-      behavior: behavior
-    });
-  }
-
-  useEffect(() => {
-    const behavior = "auto";
-    scrollToBottom(behavior);
-  }, [params.id, data?.data]);
 
   useEffect(() => {
     socket.on("receive_message", socketData => {
@@ -128,6 +115,7 @@ const Channels = () => {
 
   return (
     <div className="chat">
+      {/* <FpsView width={230} left={20} bottom={20} top={null} /> */}
       <div className="app__header app__header--bg-03 chat__header">
         <div className="d-flex flex-row align-center justify-center">
           {/* <div className="avatar avatar--sm mr-20">
