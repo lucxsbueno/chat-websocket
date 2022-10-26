@@ -6,7 +6,6 @@ import { useScroll } from "../../utils/hooks/useScroll";
 import { useTyping } from "../../utils/hooks/useTyping";
 import { useParams, useLocation } from "react-router-dom";
 import { useAuth } from "../../utils/providers/auth.provider";
-import { useGroupMessages } from "../../utils/hooks/useGroupMessages";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 
 //icons
@@ -20,10 +19,6 @@ import TextareaControled from "../../components/form/TextareaControled";
 import cuid from "cuid";
 import socket from "../../utils/ws/connection";
 import options from "../../utils/config/snackbar.config";
-
-//components
-import SenderMessages from "../../components/messages/SenderMessages";
-import IncomingMessages from "../../components/messages/IncomingMessages";
 
 const Channels = () => {
   const [message, updateMessage] = useState("");
@@ -64,7 +59,7 @@ const Channels = () => {
             data: [...cache.data, socketData.message]
           }
         });
-      } 
+      }
     });
   }, [location.state.channel.name, params.id, queryClient]);
 
@@ -76,10 +71,6 @@ const Channels = () => {
   }, [params.id, location.state.channels]);
 
   /**
-   *
-   *
-   *
-   *
    *
    * Enviar a mensagem
    */
@@ -135,15 +126,6 @@ const Channels = () => {
     socket.emit("typing", { user: user.name, room: params.id });
   }
 
-  /**
-   *
-   *
-   *
-   *
-   *
-   * Messages
-   */
-
   return (
     <div className="chat">
       <div className="app__header app__header--bg-03 chat__header">
@@ -159,9 +141,7 @@ const Channels = () => {
 
       <div className="chat__body pt-20" onScroll={e => scrollObserver(e)}>
         {isLoading && <div className="text-color x-p-20 y-p-20">Carregando...</div>}
-      
-        {/* {data?.data.map(message => <Message key={message.id} data={data} message={message} />)} */}
-
+    
         {!isLoading && <Messages messages={data} scroll={scrollToBottom} />}
 
         <div ref={messagesEndRef} />

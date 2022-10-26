@@ -1,7 +1,4 @@
 import React from "react";
-
-import cuid from "cuid";
-
 //components
 import Input from "../../components/form/Input";
 import Button from "../../components/form/Button";
@@ -10,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { useSnackbar } from "react-simple-snackbar";
 import { useHttp } from "../../utils/hooks/useHttp";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "../../utils/providers/auth.provider";
 
@@ -23,7 +20,7 @@ const Account = () => {
   const [openSnackbarError] = useSnackbar(options("error"));
   const request = useHttp();
 
-  const { register, handleSubmit, formState: { errors } } = useForm({ 
+  const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       name: user.name,
