@@ -2,9 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 
 import { useHttp } from "../../utils/hooks/useHttp";
 import { useSnackbar } from "react-simple-snackbar";
+import { useScroll } from "../../utils/hooks/useScroll";
 import { useTyping } from "../../utils/hooks/useTyping";
 import { useParams, useLocation } from "react-router-dom";
 import { useAuth } from "../../utils/providers/auth.provider";
+import { useGroupMessages } from "../../utils/hooks/useGroupMessages";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 
 //icons
@@ -18,7 +20,10 @@ import TextareaControled from "../../components/form/TextareaControled";
 import cuid from "cuid";
 import socket from "../../utils/ws/connection";
 import options from "../../utils/config/snackbar.config";
-import { useScroll } from "../../utils/hooks/useScroll";
+
+//components
+import SenderMessages from "../../components/messages/SenderMessages";
+import IncomingMessages from "../../components/messages/IncomingMessages";
 
 const Channels = () => {
   const [message, updateMessage] = useState("");
@@ -86,6 +91,7 @@ const Channels = () => {
       created_at: new Date(),
       user: {
         id: user.id,
+        name: user.name,
         username: user.username,
         avatar: user.avatar
       }
@@ -129,6 +135,15 @@ const Channels = () => {
     socket.emit("typing", { user: user.name, room: params.id });
   }
 
+  /**
+   *
+   *
+   *
+   *
+   *
+   * Messages
+   */
+
   return (
     <div className="chat">
       <div className="app__header app__header--bg-03 chat__header">
@@ -147,7 +162,7 @@ const Channels = () => {
       
         {/* {data?.data.map(message => <Message key={message.id} data={data} message={message} />)} */}
 
-        {!isLoading && <Messages messages={data} />}
+        {!isLoading && <Messages messages={data} scroll={scrollToBottom} />}
 
         <div ref={messagesEndRef} />
       </div>

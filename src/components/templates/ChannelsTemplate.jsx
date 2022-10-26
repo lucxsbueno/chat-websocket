@@ -26,7 +26,7 @@ const ChannelsTemplate = () => {
     <div className="app">
       <div className="app__wrapper">
         <div className="app__menu">
-          <div className="app__header app__header--bg-02">
+          <div className="app__header app__header--bg-02 chat__header">
             <h2 className="heading-sm">Channels</h2>
 
             <Dropdown button={

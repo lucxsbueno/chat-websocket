@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 //components
 import SenderMessages from "./SenderMessages";
@@ -11,6 +11,8 @@ const Messages = props => {
   const { user } = useAuth();
   const { data: messages } = props.messages;
   const { hasMessages, groupMessages } = useGroupMessages(messages);
+  
+  useEffect(() => { props.scroll("auto") }, [groupMessages]);
 
   const renderMessageGroup = (message, index) => {
     const groupMessage = message[1][0];

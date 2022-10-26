@@ -556,9 +556,9 @@ code {
   justify-content: center;
 }
 
-/* .app__menu-body {
-
-} */
+.app__menu-body {
+  overflow: auto;
+}
 
 .nice-background {
   width: 100%;
