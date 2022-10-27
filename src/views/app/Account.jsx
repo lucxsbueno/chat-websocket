@@ -5,19 +5,15 @@ import Button from "../../components/form/Button";
 
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
-import { useSnackbar } from "react-simple-snackbar";
 import { useHttp } from "../../utils/hooks/useHttp";
 import { Link } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "../../utils/providers/auth.provider";
 
 import schema from "../../utils/schemas/account.schema";
-import options from "../../utils/config/snackbar.config";
 
 const Account = () => {
   const { user, setUser } = useAuth();
-  const [openSnackbarSuccess] = useSnackbar(options("success"));
-  const [openSnackbarError] = useSnackbar(options("error"));
   const request = useHttp();
 
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -36,9 +32,9 @@ const Account = () => {
       if (response?.data) {
 
         if (response.data.error) {
-          openSnackbarError(response.data.message);
+          //rip snackbar
         } else {
-          openSnackbarSuccess(response.data.message);
+          //rip snackbar
 
           const updatedUser = {
             avatar: user.avatar,
@@ -59,9 +55,9 @@ const Account = () => {
     },
     onError: error => {
       if (error.response) {
-        openSnackbarError(error.response.data.message);
+        //rip snackbar
       } else {
-        openSnackbarError("Erro interno do servidor!");
+        //rip snackbar
       }
     },
     onSettled: () => { }

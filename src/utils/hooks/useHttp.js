@@ -1,9 +1,6 @@
 import axios from "axios";
 
-import options from "../../utils/config/snackbar.config";
-
 import { useNavigate } from "react-router-dom";
-import { useSnackbar } from "react-simple-snackbar";
 import { useAuth } from "../providers/auth.provider";
 
 const instance = axios.create({
@@ -14,7 +11,6 @@ const instance = axios.create({
 export const useHttp = () => {
   const navigate = useNavigate();
   const { user, setUser } = useAuth();
-  const [openSnackbarError] = useSnackbar(options("error"));
 
   const bearerToken = user.token
     ? "Bearer " + user.token
@@ -40,7 +36,7 @@ export const useHttp = () => {
       return response;
     } catch (e) {
       if (e.response.status === 401) {
-        openSnackbarError("A sessão expirou.");
+        //rip snackbar
 
         setTimeout(() => {
           setUser({ token: "" });

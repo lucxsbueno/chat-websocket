@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
 import { useHttp } from "../../utils/hooks/useHttp";
-import { useSnackbar } from "react-simple-snackbar";
 import { useScroll } from "../../utils/hooks/useScroll";
 import { useTyping } from "../../utils/hooks/useTyping";
 import { useParams, useLocation } from "react-router-dom";
@@ -18,11 +17,9 @@ import TextareaControled from "../../components/form/TextareaControled";
 
 import cuid from "cuid";
 import socket from "../../utils/ws/connection";
-import options from "../../utils/config/snackbar.config";
 
 const Channels = () => {
   const [message, updateMessage] = useState("");
-  const [openSnackbarError] = useSnackbar(options("error"));
   const messagesEndRef = useRef(null);
 
   const { user } = useAuth();
@@ -114,9 +111,9 @@ const Channels = () => {
   const { mutate } = useMutation(onSendMessage, {
     onError: error => {
       if (error.response) {
-        openSnackbarError(error.response.data.message);
+        //rip snackbar
       } else {
-        openSnackbarError("Erro interno do servidor.");
+        //rip snackbar
       }
     },
     onSettled: () => { }
@@ -142,7 +139,7 @@ const Channels = () => {
 
       <div className="chat__body pt-20" onScroll={e => scrollObserver(e)}>
         {isLoading && <div className="text-color x-p-20 y-p-20">Carregando...</div>}
-    
+
         {!isLoading && <Messages messages={data} scroll={scrollToBottom} />}
 
         <div ref={messagesEndRef} />

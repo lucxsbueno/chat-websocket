@@ -13,7 +13,6 @@ import Button from "../../components/form/Button";
 //dependencies
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useSnackbar } from "react-simple-snackbar";
 import { useHttp } from "../../utils/hooks/useHttp";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "../../utils/providers/auth.provider";
@@ -21,15 +20,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 //configs
 import schema from "../../utils/schemas/channel.schema";
-import options from "../../utils/config/snackbar.config";
 
 const ChannelsNew = () => {
   const { user } = useAuth();
   const request = useHttp();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const [openSnackbarError] = useSnackbar(options("error"));
-  const [openSnackbarSuccess] = useSnackbar(options("success"));
   const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
 
   const createNewChannel = data => request({ url: "/channels", method: "POST", data });
@@ -37,9 +33,9 @@ const ChannelsNew = () => {
   const { mutate, isLoading } = useMutation(createNewChannel, {
     onSuccess: response => {
       const channel = response.data.channel;
-      openSnackbarSuccess(response.data.message);
+      //rip snackbar
       queryClient.invalidateQueries(["channels"]);
-      navigate("/channels/" + channel.id, { 
+      navigate("/channels/" + channel.id, {
         state: {
           channel: {
             id: channel.id,
@@ -53,9 +49,9 @@ const ChannelsNew = () => {
     },
     onError: error => {
       if (error.response) {
-        openSnackbarError(error.response.data.message);
+        //rip snackbar
       } else {
-        openSnackbarError("Erro interno do servidor.");
+        //rip snackbar
       }
     },
     onSettled: () => { }

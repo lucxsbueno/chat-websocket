@@ -10,16 +10,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
-import { useSnackbar } from "react-simple-snackbar";
 import { useHttp } from "../../utils/hooks/useHttp";
 
 import schema from "../../utils/schemas/signup.schema";
-import options from "../../utils/config/snackbar.config";
 
 const Signup = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
-  const [openSnackbarSuccess] = useSnackbar(options("success"));
-  const [openSnackbarError] = useSnackbar(options("error"));
+  const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });;
   const navigate = useNavigate();
   const request = useHttp();
 
@@ -28,15 +24,15 @@ const Signup = () => {
   const { mutate, isLoading } = useMutation(signup, {
     onSuccess: response => {
       if (response.data) {
-        openSnackbarSuccess(response.data.message);
+        //rip snackbar
         navigate("/");
       }
     },
     onError: error => {
       if (error.response) {
-        openSnackbarError(error.response.data.message);
+        //rip snackbar
       } else {
-        openSnackbarError("Erro interno do servidor!");
+        //rip snackbar
       }
     },
     onSettled: () => {}

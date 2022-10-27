@@ -13,14 +13,11 @@ import { useAuth } from "../../utils/providers/auth.provider";
 import { useHttp } from "../../utils/hooks/useHttp";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
-import { useSnackbar } from "react-simple-snackbar";
 
 //configs
 import schema from "../../utils/schemas/signin.schema";
-import options from "../../utils/config/snackbar.config";
 
 const Signin = () => {
-  const [openSnackbarError] = useSnackbar(options("error"));
   const navigate = useNavigate();
   const { setUser } = useAuth();
   const request = useHttp();
@@ -44,9 +41,9 @@ const Signin = () => {
     },
     onError: error => {
       if (error.response) {
-        openSnackbarError(error.response.data.message);
+        //rip snackbar
       } else {
-        openSnackbarError("Erro interno do servidor.");
+        //rip snackbar
       }
     },
     onSettled: () => { }
