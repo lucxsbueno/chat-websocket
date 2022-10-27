@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../providers/auth.provider";
 
 const instance = axios.create({
-  baseURL: process.env.PROD,
-  timeout: process.env.REQUEST_TIMEOUT
+  baseURL: "http://13ff-201-48-245-226.ngrok.io",
+  timeout: 10000
 });
 
 export const useHttp = () => {
