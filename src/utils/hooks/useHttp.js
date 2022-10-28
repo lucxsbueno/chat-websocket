@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../providers/auth.provider";
 
 const instance = axios.create({
-  baseURL: process.env.PROD,
-  timeout: process.env.REQUEST_TIMEOUT
+  baseURL: "https://chat-websocket-backend2.herokuapp.com",
+  timeout: 10000
 });
 
 export const useHttp = () => {
