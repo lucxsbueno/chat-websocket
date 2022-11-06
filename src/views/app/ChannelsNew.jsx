@@ -17,11 +17,13 @@ import { useHttp } from "../../utils/hooks/useHttp";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "../../utils/providers/auth.provider";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import useToast from "../../utils/hooks/useToast";
 
 //configs
 import schema from "../../utils/schemas/channel.schema";
 
 const ChannelsNew = () => {
+  const { fire, ToastContainer } = useToast();
   const { user } = useAuth();
   const request = useHttp();
   const navigate = useNavigate();
@@ -33,7 +35,6 @@ const ChannelsNew = () => {
   const { mutate, isLoading } = useMutation(createNewChannel, {
     onSuccess: response => {
       const channel = response.data.channel;
-      //rip snackbar
       queryClient.invalidateQueries(["channels"]);
       navigate("/channels/" + channel.id, {
         state: {
@@ -49,9 +50,9 @@ const ChannelsNew = () => {
     },
     onError: error => {
       if (error.response) {
-        //rip snackbar
+        fire("😭", error.response.data.message);
       } else {
-        //rip snackbar
+        fire("😭", "Ocorreu um erro inesperado. Por favor, tente novamente!");
       }
     },
     onSettled: () => { }
@@ -69,6 +70,8 @@ const ChannelsNew = () => {
 
   return (
     <div>
+      <ToastContainer/>
+      
       <div className="app__header app__header--bg-03">
         <div className="d-flex flex-row align-center">
           <RoundedButton onClick={goBack}>

@@ -6,17 +6,18 @@ import cuid from "cuid";
 import Input from "../../components/form/Input";
 import Button from "../../components/form/Button";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { useHttp } from "../../utils/hooks/useHttp";
+import useToast from "../../utils/hooks/useToast";
 
 import schema from "../../utils/schemas/signup.schema";
 
 const Signup = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });;
-  const navigate = useNavigate();
+  const { fire, ToastContainer } = useToast();
   const request = useHttp();
 
   const signup = data => request({ url: "/users/signup", method: "POST", data });
@@ -24,18 +25,17 @@ const Signup = () => {
   const { mutate, isLoading } = useMutation(signup, {
     onSuccess: response => {
       if (response.data) {
-        //rip snackbar
-        navigate("/");
+        fire("👏", response.data.message);
       }
     },
     onError: error => {
-      if (error.response) {
-        //rip snackbar
+      if (error?.response) {
+        fire("😭", error.response.data.message);
       } else {
-        //rip snackbar
+        fire("😭", "Ocorreu um erro inesperado. Por favor, tente novamente!");
       }
     },
-    onSettled: () => {}
+    onSettled: () => { }
   });
 
   const doSignup = formData => mutate({
@@ -46,6 +46,8 @@ const Signup = () => {
 
   return (
     <div className="card">
+      <ToastContainer/>
+
       <h1 className="h1">Signup</h1>
       <p className="p-01">
         If you are a member, <Link to="/" className="link">signin here</Link>.

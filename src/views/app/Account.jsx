@@ -9,12 +9,14 @@ import { useHttp } from "../../utils/hooks/useHttp";
 import { Link } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "../../utils/providers/auth.provider";
+import useToast from "../../utils/hooks/useToast";
 
 import schema from "../../utils/schemas/account.schema";
 
 const Account = () => {
   const { user, setUser } = useAuth();
   const request = useHttp();
+  const { fire, ToastContainer } = useToast();
 
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
@@ -30,12 +32,14 @@ const Account = () => {
   const { mutate, isLoading } = useMutation(updateAccount, {
     onSuccess: response => {
       if (response?.data) {
+        fire("😉", response.data.message);
+      }
+
+      if (response?.data) {
 
         if (response.data.error) {
-          //rip snackbar
+          fire("😲", response.data.message);
         } else {
-          //rip snackbar
-
           const updatedUser = {
             avatar: user.avatar,
             created_at: user.created_at,
@@ -48,16 +52,15 @@ const Account = () => {
           };
 
           setUser(updatedUser);
-
           localStorage.setItem("ws-chat-user", JSON.stringify(updatedUser));
         }
       }
     },
     onError: error => {
       if (error.response) {
-        //rip snackbar
+        fire("😲", error.response.data.message);
       } else {
-        //rip snackbar
+        fire("😲", "Ocorreu um erro inesperado. Por favor, tente novamente!");
       }
     },
     onSettled: () => { }
@@ -69,6 +72,8 @@ const Account = () => {
 
   return (
     <div className="account container-fluid">
+      <ToastContainer />
+
       <div className="app__header app__header--bg-03">
         <h2 className="p-sm fw-5">Minha conta</h2>
       </div>

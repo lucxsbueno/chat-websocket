@@ -13,11 +13,13 @@ import { useAuth } from "../../utils/providers/auth.provider";
 import { useHttp } from "../../utils/hooks/useHttp";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
+import useToast from "../../utils/hooks/useToast";
 
 //configs
 import schema from "../../utils/schemas/signin.schema";
 
 const Signin = () => {
+  const { fire, ToastContainer } = useToast();
   const navigate = useNavigate();
   const { setUser } = useAuth();
   const request = useHttp();
@@ -41,9 +43,9 @@ const Signin = () => {
     },
     onError: error => {
       if (error.response) {
-        //rip snackbar
+        fire("😭", error.response.data.message);
       } else {
-        //rip snackbar
+        fire("😭", error.response.data.message);
       }
     },
     onSettled: () => { }
@@ -53,6 +55,8 @@ const Signin = () => {
 
   return (
     <div className="card">
+      <ToastContainer />
+
       <h1 className="h1">Welcome back 👋🏻</h1>
       <p className="p-01">
         Not a member? <Link to="/signup" className="link">signup now here!</Link>.
